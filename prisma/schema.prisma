@@ -11,13 +11,11 @@ generator client {
   previewFeatures = ["createMany"]
 }
 
-model Nan {
+model Provinces {
     id Int @id @default(autoincrement())
-    methodName String
-    fileName String
-    lineNumber Int
-    className String
-    nativeMethod Boolean
+    name_uz String
+    name_ru String
+    row_obl Int
 }
 
 model PhysicalPerson {

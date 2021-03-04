@@ -1,11 +1,9 @@
 -- CreateTable
-CREATE TABLE `Nan` (
+CREATE TABLE `Provinces` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `methodName` VARCHAR(191) NOT NULL,
-    `fileName` VARCHAR(191) NOT NULL,
-    `lineNumber` INTEGER NOT NULL,
-    `className` VARCHAR(191) NOT NULL,
-    `nativeMethod` BOOLEAN NOT NULL,
+    `name_uz` VARCHAR(191) NOT NULL,
+    `name_ru` VARCHAR(191) NOT NULL,
+    `row_obl` INTEGER NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
