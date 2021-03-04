@@ -1,0 +1,51 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["createMany"]
+}
+
+model Nan {
+    id Int @id @default(autoincrement())
+    methodName String
+    fileName String
+    lineNumber Int
+    className String
+    nativeMethod Boolean
+}
+
+model PhysicalPerson {
+  id Int @id @default(autoincrement())
+  ns10_code Int
+  ns11_code Int
+  tin String
+  company_name String
+  adress String
+  series_passport String
+  number_passport Int
+  org_passport String
+  issued_passport String
+  pinfl String
+}
+
+model LegalEntity {
+  id Int @id @default(autoincrement())
+  ns10_code Int
+  ns11_code Int
+  tin String
+  company_name String
+  na1_name Int
+  ns4_name Int
+  adress String
+  gd_tin String
+  gd_name String
+  gb_tin String
+  gb_name String
+}
+
