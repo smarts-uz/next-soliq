@@ -18,7 +18,7 @@ const Header = (props) => {
 
                                     <Link href="/containers/PhysicalPerson"><a className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Physical Person</a></Link>
 
-                                    <a className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Reports</a>
+                                    <Link href="/containers/Form"><a className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Form</a></Link>
                                 </div>
                             </div>
                         </div>
