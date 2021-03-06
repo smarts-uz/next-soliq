@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import Header from '../Header';
 import * as Yup from 'yup';
 import Select from 'react-select'
+import { data } from 'autoprefixer';
 
-const Basic = () => {
+const Basic = (props) => {
     const SignupSchema = Yup.object().shape({
         inn: Yup.number()
             .min(6, 'Too Short!')
@@ -43,6 +44,52 @@ const Basic = () => {
             .required("Required!"),
         email: Yup.string().email('Invalid email').required('Required'),
     });
+    console.log(props);
+
+    const getSelects = (datas) => {
+
+        let arr = [];
+        datas?.map(data => {
+            arr.push({ value: data.name, label: data.name });
+        })
+
+        return arr;
+
+
+    }
+    const [categories, setCategories] = useState(getSelects(props?.categories));
+    const [underCategories, setUnderCategories] = useState(getSelects(props?.underCategories));
+    const [themes, setThemes] = useState(getSelects(props.themes));
+
+    console.log(categories);
+
+    console.log(props);
+    const getSelectByIdForCategory = (e) => {
+        const cate = props.categories.filter(category => {
+            return e.value == category.name;
+        });
+
+        const values = props.underCategories.filter(underCate => {
+            return underCate.categoryId == cate[0].id;
+        }
+        );
+        setUnderCategories(getSelects(values));
+    }
+
+    const getSelectByIdForUnderCategory = (e) => {
+        const cate = props.underCategories.filter(underCate => {
+            return e.value == underCate.name;
+        });
+
+        console.log(cate);
+        const values = props.themes.filter(theme => {
+            return theme.underCategoryId == cate[0].id;
+        }
+        );
+        console.log(values);
+        setThemes(getSelects(values));
+    }
+
     return (
         <Header>
             <div className="container  px-48">
@@ -132,12 +179,8 @@ const Basic = () => {
 
                             <div className="col-span-2 flex flex-col">
                                 <label htmlFor="email" className="min-width-full">kategoriya:</label>
-                                <Select className="min-width-full border-2 border-gray-600" options={
-                                    [
-                                        { value: 'chocolate', label: 'Chocolate' },
-                                        { value: 'strawberry', label: 'Strawberry' },
-                                        { value: 'vanilla', label: 'Vanilla' }
-                                    ]
+                                <Select onChange={getSelectByIdForCategory} className="min-width-full border-2 border-gray-600" options={
+                                    categories
                                 } />
                                 <p>{errors.category && touched.category ? (
                                     <div>{errors.category}</div>
@@ -146,12 +189,8 @@ const Basic = () => {
 
                             <div className="col-span-2 flex flex-col">
                                 <label htmlFor="email" className="min-width-full">pochta:</label>
-                                <Select className="min-width-full border-2 border-gray-600" options={
-                                    [
-                                        { value: 'chocolate', label: 'Chocolate' },
-                                        { value: 'strawberry', label: 'Strawberry' },
-                                        { value: 'vanilla', label: 'Vanilla' }
-                                    ]
+                                <Select onChange = {getSelectByIdForUnderCategory} className="min-width-full border-2 border-gray-600" options={
+                                    underCategories
                                 } />
                                 <p>{errors.email && touched.email ? (
                                     <div>{errors.email}</div>
@@ -160,12 +199,8 @@ const Basic = () => {
 
                             <div className="col-span-2 flex flex-col">
                                 <label htmlFor="email" className="min-width-full">mavzu:</label>
-                                <Select className="min-width-full border-2 border-gray-600" options={
-                                    [
-                                        { value: 'chocolate', label: 'Chocolate' },
-                                        { value: 'strawberry', label: 'Strawberry' },
-                                        { value: 'vanilla', label: 'Vanilla' }
-                                    ]
+                                <Select className="min-width-full text-black border-2 border-gray-600" options={
+                                    themes
                                 } />           <p>{errors.email && touched.email ? (
                                     <div>{errors.email}</div>
                                 ) : null}</p>
