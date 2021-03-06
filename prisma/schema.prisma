@@ -7,43 +7,69 @@ datasource db {
 }
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["createMany"]
 }
 
 model Provinces {
-    id Int @id @default(autoincrement())
-    name_uz String
-    name_ru String
-    row_obl Int
+  id      Int    @id @default(autoincrement())
+  name_uz String
+  name_ru String
+  row_obl Int
 }
 
 model PhysicalPerson {
-  id Int @id @default(autoincrement())
-  ns10_code Int
-  ns11_code Int
-  tin String
-  company_name String
-  adress String
+  id              Int    @id @default(autoincrement())
+  ns10_code       Int
+  ns11_code       Int
+  tin             String
+  company_name    String
+  adress          String
   series_passport String
   number_passport Int
-  org_passport String
+  org_passport    String
   issued_passport String
-  pinfl String
+  pinfl           String
 }
 
 model LegalEntity {
-  id Int @id @default(autoincrement())
-  ns10_code Int
-  ns11_code Int
-  tin String
+  id           Int    @id @default(autoincrement())
+  ns10_code    Int
+  ns11_code    Int
+  tin          String
   company_name String
-  na1_name Int
-  ns4_name Int
-  adress String
-  gd_tin String
-  gd_name String
-  gb_tin String
-  gb_name String
+  na1_name     Int
+  ns4_name     Int
+  adress       String
+  gd_tin       String
+  gd_name      String
+  gb_tin       String
+  gb_name      String
 }
 
+model Type {
+  id      Int    @id @default(autoincrement())
+  uzbek   String
+  russian String
+}
+
+model Category {
+  id               Int             @id @default(autoincrement())
+  name             String
+  unnderCategories UnderCategory[]
+}
+
+model UnderCategory {
+  id         Int      @id @default(autoincrement())
+  name       String
+  author     Category @relation(fields: [categoryId], references: [id])
+  categoryId Int
+  themes    Theme[]
+}
+
+model Theme {
+  id   Int    @id @default(autoincrement())
+  name String
+  underCategory UnderCategory @relation(fields: [underCategoryId], references: [id])
+  underCategoryId Int
+}
