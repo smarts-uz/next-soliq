@@ -17,7 +17,8 @@
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-select": "^4.2.1",
-    "yup": "^0.32.9"
+    "yup": "^0.32.9",
+    "yup-phone": "^1.2.19"
   },
   "devDependencies": {
     "autoprefixer": "^10.2.4",

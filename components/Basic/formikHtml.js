@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Select from 'react-select';
-import MySelect from '../MySelect';
-
+import axios from 'axios';
+import { useRouter } from "next/router";
+import "yup-phone";
 const BasicWithHTML = (props) => {
 
 
@@ -50,21 +51,21 @@ const BasicWithHTML = (props) => {
             return e.value == underCate.name;
         });
 
-        console.log(cate);
         const values = props.themes.filter(theme => {
             return theme.underCategoryId == cate[0].id;
         }
         );
-        console.log(values);
+
         setThemes(getSelects(values));
     }
 
+    const router = useRouter();
     const formik = useFormik({
         initialValues: {
             operator: '',
             fio: '',
-            numberOfCalls: '',
-            history: '',
+            // numberOfCalls: '',
+            // history: '',
             referenceContent: '',
             inn: '',
             type: '',
@@ -89,14 +90,14 @@ const BasicWithHTML = (props) => {
                 .min(6)
                 .max(50)
                 .required(),
-            numberOfCalls: Yup.string()
-                .min(6)
-                .max(50)
-                .required(),
-            history: Yup.string()
-                .min(6)
-                .max(50)
-                .required(),
+            // numberOfCalls: Yup.string()
+            //     .min(6)
+            //     .max(50)
+            //     .required(),
+            // history: Yup.string()
+            //     .min(6)
+            //     .max(50)
+            //     .required(),
             referenceContent: Yup.string()
                 .min(100)
                 .max(1024)
@@ -126,12 +127,10 @@ const BasicWithHTML = (props) => {
                 .min(3, "Too Short!")
                 .max(50, "Too Long!")
                 .required("Required"),
-            phone: Yup.number()
-                .typeError("That doesn't look like a phone number")
-                .positive("A phone number can't start with a minus")
-                .integer("A phone number can't include a decimal point")
-                .min(8)
-                .required('A phone number is required'),
+            phone: Yup.
+                string()
+                .phone('UZ')
+                .required(),
             email: Yup.string().email('Invalid email').required('Required'),
             category: Yup.string()
                 .required('Required!'),
@@ -146,8 +145,15 @@ const BasicWithHTML = (props) => {
                 .max(1024)
                 .required("Required!")
         }),
-        onSubmit: values => {
-            alert(JSON.stringify(values, null, 2));
+        onSubmit: async values => {
+            await axios.post('/api/Datas/create', values)
+                .then(res => {
+                    // console.log(res);
+                    router.push('/containers/Form/dataTable');
+                })
+                .catch(err=>{
+                    console.log(err);
+                })
         },
     });
     return (
@@ -255,13 +261,13 @@ const BasicWithHTML = (props) => {
 
                         // onChange={formik.handleChange}
                         onBlur={() => {
-                            
+
                             formik.setFieldTouched('type', true);
 
                         }}
                         onChange={(opt, e) => {
                             console.log(opt, e);
-                            
+
                             formik.setFieldValue("type", opt.value);
                         }}
                     />
@@ -392,13 +398,13 @@ const BasicWithHTML = (props) => {
                     <Select
                         id="underCategory"
                         name="underCategory"
-                        onFocus = { () => {
-                            if(!formik.values.category){
+                        onFocus={() => {
+                            if (!formik.values.category) {
                                 alert("Iltimos kategoriyani tanlang!!!")
-                                return  ;
+                                return;
                             }
                         }}
-                        options={formik.values.category ? underCategories : [{value: " ", label: " "}]}
+                        options={formik.values.category ? underCategories : [{ value: " ", label: " " }]}
 
                         // onChange={formik.handleChange}
                         onBlur={() => {
@@ -421,12 +427,12 @@ const BasicWithHTML = (props) => {
                     <Select
                         id="theme"
                         name="theme"
-                        options={formik.values.underCategory ? themes : [{value: "", label: ""}]}
-                        
-                        onFocus = { () => {
-                            if(!formik.values.underCategory){
+                        options={formik.values.underCategory ? themes : [{ value: "", label: "" }]}
+
+                        onFocus={() => {
+                            if (!formik.values.underCategory) {
                                 alert("Iltimos kategoriya ostini tanlang!!!")
-                                return  ;
+                                return;
                             }
                         }}
                         // onChange={formik.handleChange}
@@ -475,7 +481,7 @@ const BasicWithHTML = (props) => {
                 </div>
 
                 <div className="flex justify-between space-x-4 text-center sm:col-start-7 sm:col-end-13     md:col-span-4 md:col-start-9   xl:col-span-2 xl:col-start-11 ">
-                    <button className="h-8 border-2 text-white font-bold bg-blue-600 border-gray-800 w-1/2"> Сохранить</button>
+                    <button type="submit" className="h-8 border-2 text-white font-bold bg-blue-600 border-gray-800 w-1/2"> Сохранить</button>
                     <button type="button" className="h-8 border-2 text-white font-bold bg-yellow-600 border-gray-800 w-1/2"> Выход</button>
                 </div>
             </form>

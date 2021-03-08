@@ -1,5 +1,4 @@
 import { PrismaClient } from ".prisma/client"
-import Basic  from "../../../components/Basic/formik"
 import BasicWithHTML from "../../../components/Basic/formikHtml";
 export const getStaticProps = async () => {
     const prisma = new PrismaClient()
