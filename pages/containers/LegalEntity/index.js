@@ -6,19 +6,16 @@ import Modal from "../../../components/Modal/modalEntity";
 
 export const getStaticProps = async () => {
     const prisma = new PrismaClient()
-    const provinces = await prisma.provinces.findMany();
-    const themes = await prisma.theme.findMany();
+    const provinces = await prisma.provinces.findMany()
     return {
         props: {
-            provinces: provinces,
-            themes: themes
-            
+            provinces: provinces
         }
     }
 }
 
 const PhysicalPerson = (props) => {
-    console.log(props.themes);
+
     const [company_tin, setCompanyTin] = useState('');
     const [dataModal, setDataModal] = useState(false);
     const [legalEntity, setlegalEntity] = useState(null);

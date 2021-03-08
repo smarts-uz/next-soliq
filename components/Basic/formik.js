@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, useFormik } from 'formik';
 import Header from '../Header';
 import * as Yup from 'yup';
 import Select from 'react-select'
@@ -57,13 +57,36 @@ const Basic = (props) => {
 
 
     }
+
+    const getSelectTypes = (datas) => {
+        let arr = [];
+        datas?.map(data => {
+            arr.push({ value: data.uzbek, label: data.uzbek });
+        })
+
+        return arr;
+    }
     const [categories, setCategories] = useState(getSelects(props?.categories));
     const [underCategories, setUnderCategories] = useState(getSelects(props?.underCategories));
     const [themes, setThemes] = useState(getSelects(props.themes));
-
-    console.log(categories);
-
-    console.log(props);
+    const [types, setTypes] = useState(getSelectTypes(props.types));
+    
+    const formik = useFormik({
+        initialValues: {
+            inn: '',
+            type: '',
+            author: '',
+            province: '',
+            destrict: '',
+            email: '',
+            category: '',
+            comment: ''
+        },
+        validationSchema: SignupSchema,
+        onSubmit: values => {
+            console.log(values);
+        }
+    })
     const getSelectByIdForCategory = (e) => {
         const cate = props.categories.filter(category => {
             return e.value == category.name;
@@ -93,29 +116,12 @@ const Basic = (props) => {
     return (
         <Header>
             <div className="container  px-48">
-                <Formik
-                    initialValues={{
-                        inn: '',
-                        type: '',
-                        author: '',
-                        province: '',
-                        destrict: '',
-                        email: '',
-                        category: '',
-                        comment: ''
-                    }}
-                    validationSchema={SignupSchema}
-                    onSubmit={values => {
-                        // same shape as initial values
-                        console.log(values);
-                    }}
-                >
                     {({ errors, touched }) => (
-                        <Form className="grid grid-cols-6 gap-4">
+                        <form onSubmit = {formik.handleSubmit} className="grid grid-cols-6 gap-4 sm:grid-cols-2">
 
                             <div className="col-span-1 flex flex-col">
                                 <label htmlFor="inn" className="min-width-full">STIR</label>
-                                <Field name="inn" type="number" className="min-width-full border-2 border-gray-600" />
+                                <input name="inn" type="number" value = {formik.values.inn} className="min-width-full border-2 border-gray-600" />
                                 <p>{errors.inn && touched.inn ? (
                                     <div>{errors.inn}</div>
                                 ) : null}</p>
@@ -123,7 +129,10 @@ const Basic = (props) => {
 
                             <div className="col-span-1 flex flex-col">
                                 <label htmlFor="type" className="min-width-full">toifasi:</label>
-                                <Field name="type" className="min-width-full border-2 border-gray-600" />
+                                <Select name="type" options = {
+                                    types
+                                }/>
+                                {/* <Field name="type" className="min-width-full border-2 border-gray-600" /> */}
                                 <p>{errors.type && touched.type ? (
                                     <div>{errors.type}</div>
                                 ) : null}</p>
@@ -179,7 +188,7 @@ const Basic = (props) => {
 
                             <div className="col-span-2 flex flex-col">
                                 <label htmlFor="email" className="min-width-full">kategoriya:</label>
-                                <Select onChange={getSelectByIdForCategory} className="min-width-full border-2 border-gray-600" options={
+                                <Select name = "category" onChange={getSelectByIdForCategory} className="min-width-full border-2 border-gray-600" options={
                                     categories
                                 } />
                                 <p>{errors.category && touched.category ? (
@@ -188,8 +197,8 @@ const Basic = (props) => {
                             </div>
 
                             <div className="col-span-2 flex flex-col">
-                                <label htmlFor="email" className="min-width-full">pochta:</label>
-                                <Select onChange = {getSelectByIdForUnderCategory} className="min-width-full border-2 border-gray-600" options={
+                                <label htmlFor="email" className="min-width-full">kategoriya osti:</label>
+                                <Select  onChange = {getSelectByIdForUnderCategory} className="min-width-full border-2 border-gray-600" options={
                                     underCategories
                                 } />
                                 <p>{errors.email && touched.email ? (
@@ -207,7 +216,7 @@ const Basic = (props) => {
                             </div>
 
                             <div className="col-span-2 flex flex-col">
-                                <label htmlFor="email" className="min-width-full">mavzu:</label>
+                                <label htmlFor="email" className="min-width-full">ko'rib chiqish natijasi:</label>
                                 <Select className="min-width-full border-2 border-gray-600" options={
                                     [
                                         { value: 'chocolate', label: 'Chocolate' },
@@ -231,9 +240,8 @@ const Basic = (props) => {
                                 <button className="w-32 focus:outline-none border-2 border-gray-600 bg-blue-600" type="submit"> Saqlash </button>
                                 <button className="w-32 focus:outline-none border-2 border-gray-600 bg-yellow-600" type="button"> Chiqish </button>
                             </div>
-                        </Form>
+                        </form>
                     )}
-                </Formik>
             </div>
 
         </Header>
