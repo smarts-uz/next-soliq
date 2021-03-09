@@ -77,12 +77,12 @@ const BasicWithHTML = (props) => {
     },
     validationSchema: Yup.object({
       operator: Yup.string()
-        .min(6)
-        .max(50)
+        .min(6,"Оператор должен состоять не менее чем из 6 символов")
+        .max(50,"Оператор должен состоять не более чем из 50 символов")
         .required("Оператор является обязательным полем"),
       fio: Yup.string()
-        .min(6)
-        .max(50)
+        .min(6,"Ф.И.О должен состоять не менее чем из 6 символов")
+        .max(50,"Ф.И.О должен состоять не более чем из 50 символов")
         .required("Ф.И.О является обязательным полем"),
       // numberOfCalls: Yup.string()
       //     .min(6)
@@ -93,8 +93,8 @@ const BasicWithHTML = (props) => {
       //     .max(50)
       //     .required(),
       referenceContent: Yup.string()
-        .min(100)
-        .max(1024)
+        .min(100,"Содержание обращения должно содержать не менее 100 символов")
+        .max(1024,"Содержание обращения должен состоять не более чем из 50 символов")
         .required("Обязательное поле"),
       inn: Yup.number()
         .min(6, "Слишком коротко!")
@@ -121,8 +121,8 @@ const BasicWithHTML = (props) => {
         .min(3, "Слишком коротко!")
         .max(50, "Слишком Долго!")
         .required("Обязательное поле"),
-      phone: Yup.string().phone("UZ").required(),
-      email: Yup.string().email("Invalid email").required("Обязательное поле"),
+      phone: Yup.string().phone("UZ").required("Телефон должен быть действующим номером телефона для региона Узбекистан"),
+      email: Yup.string().email("Неверный адрес электронной почты").required("Обязательное поле"),
       category: Yup.string().required("Обязательное поле!"),
       underCategory: Yup.string().required("Обязательное поле!"),
       theme: Yup.string().required("Обязательное поле!"),
@@ -130,10 +130,11 @@ const BasicWithHTML = (props) => {
       comment: Yup.string().min(100).max(1024).required("Обязательное поле!"),
     }),
     onSubmit: async (values) => {
+        console.log("start")
       await axios
         .post("/api/Datas/create", values)
         .then((res) => {
-          // console.log(res);
+          console.log("Hi");
           router.push("/containers/Form/dataTable");
         })
         .catch((err) => {
@@ -526,7 +527,7 @@ const BasicWithHTML = (props) => {
           ) : null}
         </div>
 
-        <div className="flex justify-around space-x-4 text-center sm:col-start-7 sm:col-end-13     md:col-span-4 md:col-start-9 xl:col-span-2 xl:col-start-5">
+        <div className="flex justify-around space-x-4 text-center sm:col-start-7 sm:col-end-13     md:col-span-4 md:col-start-9 xl:col-span-2 xl:col-start-6">
           <button
             type="submit"
             className="text-blue-600 border-blue-600 bg-white  hover:text-white hover:bg-blue-600 hover:border-blue-900 border-2 font-bold transition duration-300 ease-in-out px-3 py-2"
