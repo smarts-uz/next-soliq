@@ -1,15 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Select from 'react-select';
 import axios from 'axios';
 import { useRouter } from "next/router";
 import "yup-phone";
+
+
+
+
 const BasicWithHTML = (props) => {
-
-
+    console.log(props.data);
+    
+    
     const getSelects = (datas) => {
-
+        
         let arr = [];
         datas?.map(data => {
             arr.push({ value: data.name, label: data.name });
@@ -59,27 +64,50 @@ const BasicWithHTML = (props) => {
         setThemes(getSelects(values));
     }
 
+    useEffect(() => {
+        console.log(props.data, formik.initialValues);
+        formik.initialValues =  {
+            operator: props.data?.author,
+            fio: props.data ? props.data.fio: '',
+            // numberOfCalls: '',
+            // history: '',
+            referenceContent: props.data ? props.data.referenceContent: '',
+            inn: props.data ? props.data.inn: 'fsdfhkwejrhdsfj',
+            type: props.data ? props.data.type: '',
+            author: props.data ? props.data.author: '',
+            province: props.data ? props.data.province: '',
+            destrict: props.data ? props.data.destrict: '',
+            address: props.data ? props.data.address: '',
+            phone: props.data ? props.data.phone: '',
+            email: props.data ? props.data.email: '',
+            category: props.data ? props.data.category: '',
+            underCategory: props.data ? props.data.underCategory: '',
+            theme: props.data ? props.data.theme: '',
+            reviewResult: props.data ? props.data.reviewResult: '',
+            comment: props.data ? props.data.comment: ''
+        }
+    }, []);
     const router = useRouter();
     const formik = useFormik({
         initialValues: {
-            operator: '',
-            fio: '',
+            operator: props.data ? props.data.author: '',
+            fio: props.data ? props.data.fio: '',
             // numberOfCalls: '',
             // history: '',
-            referenceContent: '',
-            inn: '',
-            type: '',
-            author: '',
-            province: '',
-            destrict: '',
-            address: '',
-            phone: '',
-            email: '',
-            category: '',
-            underCategory: '',
-            theme: '',
-            reviewResult: '',
-            comment: ''
+            referenceContent: props.data ? props.data.referenceContent: '',
+            inn:  props.data?.inn,
+            type: props.data ? props.data.type: '',
+            author: props.data ? props.data.author: '',
+            province: props.data ? props.data.province: '',
+            destrict: props.data ? props.data.destrict: '',
+            address: props.data ? props.data.address: '',
+            phone: props.data ? props.data.phone: '',
+            email: props.data ? props.data.email: '',
+            category: props.data ? props.data.category: '',
+            underCategory: props.data ? props.data.underCategory: '',
+            theme: props.data ? props.data.theme: '',
+            reviewResult: props.data ? props.data.reviewResult: '',
+            comment: props.data ? props.data.comment: ''
         },
         validationSchema: Yup.object({
             operator: Yup.string()
@@ -156,10 +184,11 @@ const BasicWithHTML = (props) => {
                 })
         },
     });
+
     return (
         <div className="container mx-auto ">
             <form onSubmit={formik.handleSubmit} className="grid gap-4  md:grid-cols-12 sm:grid-cols-12 sm:px-4  xl:grid-cols-12 px-8 py-10">
-
+                
                 <div className="md:col-span-12 bg-blue-300 py-10 px-6 lg:col-span-12 sm:col-span-12 grid md:grid-cols-12 sm:grid-cols-12   xl:grid-cols-12 gap-4">
                     <div className="md:col-span-6 lg:col-span-3 sm:col-span-12">
                         <label htmlFor="operator">Оператор: </label>
@@ -184,7 +213,10 @@ const BasicWithHTML = (props) => {
                             name="fio"
                             onBlur={formik.handleBlur}
                             onChange={formik.handleChange}
-                            value={formik.values.fio}
+                            value={() => {
+                                formik.values.fio = props.data ? props.data.inn : formik.values.fio
+                                return formik.values.fio;
+                            }}
                         />
                         {formik.touched.fio && formik.errors.fio ? (
                             <div className="text-red-900 font-bold">{formik.errors.fio}</div>
