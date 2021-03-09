@@ -51,12 +51,11 @@ const BasicWithHTML = (props) => {
   };
 
   useEffect(() => {
-    console.log(props.data, formik.initialValues);
+    console.log(props.data);
+
     formik.initialValues = {
-      operator: props.data?.author,
+      operator: props.data ? props.data.operator : "",
       fio: props.data ? props.data.fio : "",
-      // numberOfCalls: '',
-      // history: '',
       referenceContent: props.data ? props.data.referenceContent : "",
       inn: props.data ? props.data.inn : "fsdfhkwejrhdsfj",
       type: props.data ? props.data.type : "",
@@ -72,14 +71,14 @@ const BasicWithHTML = (props) => {
       reviewResult: props.data ? props.data.reviewResult : "",
       comment: props.data ? props.data.comment : "",
     };
-  }, []);
+    console.log(formik.initialValues);
+  }, [props.data]);
+
   const router = useRouter();
   const formik = useFormik({
     initialValues: {
       operator: props.data ? props.data.author : "",
       fio: props.data ? props.data.fio : "",
-      // numberOfCalls: '',
-      // history: '',
       referenceContent: props.data ? props.data.referenceContent : "",
       inn: props.data?.inn,
       type: props.data ? props.data.type : "",
@@ -180,7 +179,7 @@ const BasicWithHTML = (props) => {
               name="operator"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              value={formik.values.operator}
+              value={formik.initialValues.operator}
             />
             {formik.touched.operator && formik.errors.operator ? (
               <div className="text-red-900 font-bold">
@@ -199,7 +198,7 @@ const BasicWithHTML = (props) => {
               name="fio"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              value={formik.values.fio}
+              value={formik.initialValues.fio}
             />
             {formik.touched.fio && formik.errors.fio ? (
               <div className="text-red-900 font-bold">{formik.errors.fio}</div>
@@ -218,7 +217,7 @@ const BasicWithHTML = (props) => {
             name="referenceContent"
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
-            value={formik.values.referenceContent}
+            value={formik.initialValues.referenceContent}
           />
           {formik.touched.referenceContent && formik.errors.referenceContent ? (
             <div className="text-red-900 font-bold">
@@ -237,7 +236,7 @@ const BasicWithHTML = (props) => {
             name="inn"
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
-            value={formik.values.inn}
+            value={formik.initialValues.inn}
           />
           {formik.touched.inn && formik.errors.inn ? (
             <div className="text-red-900 font-bold">{formik.errors.inn}</div>
@@ -279,7 +278,7 @@ const BasicWithHTML = (props) => {
             name="author"
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
-            value={formik.values.author}
+            value={formik.initialValues.author}
           />
 
           {formik.touched.author && formik.errors.author ? (
@@ -297,7 +296,7 @@ const BasicWithHTML = (props) => {
             name="province"
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
-            value={formik.values.province}
+            value={formik.initialValues.province}
           />
 
           {formik.touched.province && formik.errors.province ? (
@@ -317,7 +316,7 @@ const BasicWithHTML = (props) => {
             name="destrict"
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
-            value={formik.values.destrict}
+            value={formik.initialValues.destrict}
           />
           {formik.touched.destrict && formik.errors.destrict ? (
             <div className="text-red-900 font-bold">
@@ -336,7 +335,7 @@ const BasicWithHTML = (props) => {
             name="address"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            value={formik.values.address}
+            value={formik.initialValues.address}
           />
           {formik.touched.address && formik.errors.address ? (
             <div className="text-red-900 font-bold">
@@ -379,13 +378,13 @@ const BasicWithHTML = (props) => {
             id="underCategory"
             name="underCategory"
             onFocus={() => {
-              if (!formik.values.category) {
+              if (!formik.initialValues.category) {
                 alert("Iltimos kategoriyani tanlang!!!");
                 return;
               }
             }}
             options={
-              formik.values.category
+              formik.initialValues.category
                 ? underCategories
                 : [{ value: " ", label: " " }]
             }
@@ -414,10 +413,12 @@ const BasicWithHTML = (props) => {
             id="theme"
             name="theme"
             options={
-              formik.values.underCategory ? themes : [{ value: "", label: "" }]
+              formik.initialValues.underCategory
+                ? themes
+                : [{ value: "", label: "" }]
             }
             onFocus={() => {
-              if (!formik.values.underCategory) {
+              if (!formik.initialValues.underCategory) {
                 alert("Iltimos kategoriya ostini tanlang!!!");
                 return;
               }
@@ -445,7 +446,7 @@ const BasicWithHTML = (props) => {
             name="phone"
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
-            value={formik.values.phone}
+            value={formik.initialValues.phone}
           />
           {formik.touched.phone && formik.errors.phone ? (
             <div className="text-red-900 font-bold">{formik.errors.phone}</div>
@@ -462,7 +463,8 @@ const BasicWithHTML = (props) => {
             name="email"
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
-            value={formik.values.email}
+            value={formik.initialValues.email}
+            defaultValue={formik.initialValues.email}
           />
           {formik.touched.email && formik.errors.email ? (
             <div className="text-red-900 font-bold">{formik.errors.email}</div>
@@ -481,7 +483,8 @@ const BasicWithHTML = (props) => {
             name="reviewResult"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            value={formik.values.reviewResult}
+            value={formik.initialValues.reviewResult}
+            defaultValue={formik.initialValues.reviewResult}
           />
           {formik.touched.reviewResult && formik.errors.reviewResult ? (
             <div className="text-red-900 font-bold">
@@ -500,7 +503,8 @@ const BasicWithHTML = (props) => {
             name="comment"
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
-            value={formik.values.comment}
+            value={formik.initialValues.comment}
+            defaultValue={formik.initialValues.comment}
           />
           {formik.touched.comment && formik.errors.comment ? (
             <div className="text-red-900 font-bold">
