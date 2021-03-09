@@ -26,7 +26,6 @@ const datTable = (props) => {
   }, [oneUser, showModal])
 
   const deleteUser = async (id) => {
-    console.log(id);
     await axios.delete('/api/user', id).then(data => {
       console.log(data);
     }).catch(err => {

@@ -27,8 +27,6 @@ export const getStaticProps = async () => {
     }
 }
 const dataTable = (props) => {
-    console.log(props);
-    console.log("ishladimi");
     return (
         <>
             <div className="flex flex-col justify-center md:px-32 h-screen">

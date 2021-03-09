@@ -49,38 +49,12 @@ const BasicWithHTML = (props) => {
 
     setThemes(getSelects(values));
   };
-
-  useEffect(() => {
-    console.log(props.data);
-
-    formik.initialValues = {
-      operator: props.data ? props.data.operator : "",
-      fio: props.data ? props.data.fio : "",
-      referenceContent: props.data ? props.data.referenceContent : "",
-      inn: props.data ? props.data.inn : "fsdfhkwejrhdsfj",
-      type: props.data ? props.data.type : "",
-      author: props.data ? props.data.author : "",
-      province: props.data ? props.data.province : "",
-      destrict: props.data ? props.data.destrict : "",
-      address: props.data ? props.data.address : "",
-      phone: props.data ? props.data.phone : "",
-      email: props.data ? props.data.email : "",
-      category: props.data ? props.data.category : "",
-      underCategory: props.data ? props.data.underCategory : "",
-      theme: props.data ? props.data.theme : "",
-      reviewResult: props.data ? props.data.reviewResult : "",
-      comment: props.data ? props.data.comment : "",
-    };
-    console.log(formik.initialValues);
-  }, [props.data]);
-
-  const router = useRouter();
   const formik = useFormik({
     initialValues: {
       operator: props.data ? props.data.author : "",
       fio: props.data ? props.data.fio : "",
       referenceContent: props.data ? props.data.referenceContent : "",
-      inn: props.data?.inn,
+      inn: props.data ? props.data.inn : "",
       type: props.data ? props.data.type : "",
       author: props.data ? props.data.author : "",
       province: props.data ? props.data.province : "",
@@ -94,6 +68,7 @@ const BasicWithHTML = (props) => {
       reviewResult: props.data ? props.data.reviewResult : "",
       comment: props.data ? props.data.comment : "",
     },
+
     validationSchema: Yup.object({
       operator: Yup.string()
         .min(6, "Оператор должен состоять не менее чем из 6 символов")
@@ -149,6 +124,7 @@ const BasicWithHTML = (props) => {
       reviewResult: Yup.string().required("Обязательное поле!"),
       comment: Yup.string().min(100).max(1024).required("Обязательное поле!"),
     }),
+
     onSubmit: async (values) => {
       await axios
         .post("/api/Datas/create", values)
@@ -161,6 +137,31 @@ const BasicWithHTML = (props) => {
         });
     },
   });
+  useEffect(() => {
+    const data = {
+      operator: props.data ? props.data.operator : "",
+      fio: props.data ? props.data.fio : "",
+      referenceContent: props.data ? props.data.referenceContent : "",
+      inn: props.data ? props.data.inn : "",
+      type: props.data ? props.data.type : "",
+      author: props.data ? props.data.author : "",
+      province: props.data ? props.data.province : "",
+      destrict: props.data ? props.data.destrict : "",
+      address: props.data ? props.data.address : "",
+      phone: props.data ? props.data.phone : "",
+      email: props.data ? props.data.email : "",
+      category: props.data ? props.data.category : "",
+      underCategory: props.data ? props.data.underCategory : "",
+      theme: props.data ? props.data.theme : "",
+      reviewResult: props.data ? props.data.reviewResult : "",
+      comment: props.data ? props.data.comment : "",
+    };
+    formik.setValues(data)
+  }, [props.data]);
+
+
+  const router = useRouter();
+  
 
   return (
     <div className="container mx-auto md:w-4/5 xl:w-3/5">

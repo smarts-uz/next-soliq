@@ -2,7 +2,6 @@ import Image from 'next/image';
 import BasicWithHTML from '../Basic/formikHtml';
 
 const Modal = (props) => {
-    console.log(props);
     return (
         <div className={(props.show) ? 'fixed z-10 inset-0 overflow-y-auto min-w-full' : 'fixed z-10 inset-0 hidden'}>
             <div className="flex items-end justify-center min-h-screen  text-center sm:block sm:p-0">
