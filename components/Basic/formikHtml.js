@@ -398,7 +398,7 @@ const BasicWithHTML = (props) => {
             name="underCategory"
             onFocus={() => {
               if (!formik.values.category) {
-                alert("Iltimos kategoriyani tanlang!!!");
+                alert("Пожалуйста, выберите категорию!!!");
                 return;
               }
             }}
@@ -436,7 +436,7 @@ const BasicWithHTML = (props) => {
             }
             onFocus={() => {
               if (!formik.values.underCategory) {
-                alert("Iltimos kategoriya ostini tanlang!!!");
+                alert("Пожалуйста, выберите подкатегорию!!!");
                 return;
               }
             }}
