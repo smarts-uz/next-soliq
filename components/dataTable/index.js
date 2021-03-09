@@ -128,7 +128,7 @@ const datTable = (props) => {
         setShowUpdateModal(!showUpdateModal);
       }} >
         {oneUser ? <BasicWithHTML data = {oneUser} {...props} /> : <BasicWithHTML  {...props} />}
-        
+        {/* ok */}
       </Modal>
       {/* <UpdateForm data={oneUser}
         show={showUpdateModal}
