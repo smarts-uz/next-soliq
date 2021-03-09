@@ -8,7 +8,7 @@ export default async (req, res) => {
     let headers = new Headers();
 
     headers.set('Authorization', 'Basic ' + 'dGVzdDoxMjM0NTY3ODk=');
-    console.log("Ishalyapti");
+    console.log("Ishlayapti");
     await axios.post('https://ws.soliqservis.uz/gnk/data/fiznp1', {
         "tin": req.body.inn,
         "lang": "uz",
