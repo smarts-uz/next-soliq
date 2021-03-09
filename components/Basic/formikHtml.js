@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import "yup-phone";
 
 const BasicWithHTML = (props) => {
-  // console.log(props.data);
+  console.log(props);
   const getSelects = (datas) => {
     let arr = [];
     datas?.map((data) => {
@@ -51,13 +51,11 @@ const BasicWithHTML = (props) => {
   };
 
   useEffect(() => {
-    console.log(props.data);
-
     formik.initialValues = {
       operator: props.data ? props.data.operator : "",
       fio: props.data ? props.data.fio : "",
       referenceContent: props.data ? props.data.referenceContent : "",
-      inn: props.data ? props.data.inn : "fsdfhkwejrhdsfj",
+      inn: props.data ? props.data.inn : "",
       type: props.data ? props.data.type : "",
       author: props.data ? props.data.author : "",
       province: props.data ? props.data.province : "",
@@ -71,7 +69,8 @@ const BasicWithHTML = (props) => {
       reviewResult: props.data ? props.data.reviewResult : "",
       comment: props.data ? props.data.comment : "",
     };
-    console.log(formik.initialValues);
+    formik.values = { ...formik.initialValues };
+    console.log(formik.values);
   }, [props.data]);
 
   const router = useRouter();
@@ -80,7 +79,7 @@ const BasicWithHTML = (props) => {
       operator: props.data ? props.data.author : "",
       fio: props.data ? props.data.fio : "",
       referenceContent: props.data ? props.data.referenceContent : "",
-      inn: props.data?.inn,
+      inn: props.data ? props.data.inn : "",
       type: props.data ? props.data.type : "",
       author: props.data ? props.data.author : "",
       province: props.data ? props.data.province : "",
@@ -179,7 +178,7 @@ const BasicWithHTML = (props) => {
               name="operator"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              value={formik.values.operator}
+              defaultValue={formik.values.operator}
             />
             {formik.touched.operator && formik.errors.operator ? (
               <div className="text-red-900 font-bold">

@@ -4,7 +4,6 @@ const prisma  = new PrismaClient();
 export default async (req, res) => {
 
     if(req.method === "POST" ){
-        console.log("ISHLadimi");
         let obj = {};
         console.log(req.body);
         await prisma.datas.findMany({
