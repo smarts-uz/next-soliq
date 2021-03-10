@@ -11,54 +11,45 @@ const datTable = (props) => {
   const [oneUser, setOneUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
-  const dateFormat = (datetime) => {
-    
-    let date = new Date(Date.parse(datetime));
-    console.log(date);
-    let day = (date.getDay().toString().length == 1) ? `0${date.getDay()}` : date.getDay();
-    let month = (date.getMonth().toString().length == 1) ? `0${date.getMonth()}` : date.getMonth();;
-    console.log(day, month);
-    return date.toDateString();
-  }
 
   return (
-    <div className="flex flex-col my-4 text-center w-full overflow-hidden">
-      <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-        <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-          <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+    <div className="flex flex-col text-center w-full overflow-hidden">
+      <div className="-my-2 overflow-x-auto ">
+        <div className="py-2 align-middle inline-block min-w-full">
+          <div className="shadow overflow-hidden border-b border-gray-200">
             <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-blue-500 text-white">
+              <thead className="bg-white text-black">
                 <tr>
-                  <th scope="col" className=" py-3 text-center text-xs font-medium  uppercase tracking-wider">
+                  <th scope="col" className=" py-3 text-center text-sm font-bold  uppercase tracking-wider">
                     author
                 </th>
-                  <th scope="col" className=" py-3 text-center text-xs font-medium  uppercase tracking-wider">
+                  <th scope="col" className=" py-3 text-center text-sm font-bold  uppercase tracking-wider">
                     inn
                 </th>
-                  <th scope="col" className=" py-3 text-center text-xs font-medium  uppercase tracking-wider">
+                  <th scope="col" className=" py-3 text-center text-sm font-bold  uppercase tracking-wider">
                     province
                 </th>
-                  <th scope="col" className=" py-3 text-center text-xs font-medium  uppercase tracking-wider">
+                  <th scope="col" className=" py-3 text-center text-sm font-bold  uppercase tracking-wider">
                     destrict
                 </th>
-                  <th scope="col" className=" py-3 text-center text-xs font-medium  uppercase tracking-wider">
+                  <th scope="col" className=" py-3 text-center text-sm font-bold  uppercase tracking-wider">
                     address
                 </th>
-                  <th scope="col" className=" py-3 text-center text-xs font-medium  uppercase tracking-wider">
+                  <th scope="col" className=" py-3 text-center text-sm font-bold  uppercase tracking-wider">
                     phone
                 </th>
-                  <th scope="col" className=" py-3 text-center text-xs font-medium  uppercase tracking-wider">
+                  <th scope="col" className=" py-3 text-center text-sm font-bold  uppercase tracking-wider">
                     email
                 </th>
-                  <th scope="col" className="relative  py-3">
+                  <th scope="col" className="py-3 text-center text-sm font-bold  uppercase tracking-wider">
                     Edit
                   </th>
                 </tr>
               </thead>
               <tbody className="bg- divide-y divide-white">
-                {props?.users?.map(user => {
+                {props.users.map(user => {
                   return (
-                    <tr key={user.id} className="bg-blue-100 hover:bg-white">
+                    <tr key={user.id} className="bg-white hover:bg-gray-200">
                       <td className="  whitespace-nowrap">
                         
                           <div className="text-sm text-gray-900 text-center">{user.author}</div>
@@ -84,23 +75,19 @@ const datTable = (props) => {
                       <td className=" py-4  whitespace-nowrap text-sm text-gray-500">
                         {user.email}
                       </td>
-                      <td className="pr-4 py-4 flex justify-center whitespace-nowrap text-left text-sm font-medium">
+                      <td className="py-4 flex justify-center whitespace-nowrap text-left text-sm font-medium">
                         <button onClick={() => {
                           setOneUser(user);
                           setShowUpdateModal(true)
-                        }} className="border-none mx-1 w-6 focus:outline-none fal fa-edit rounded-full" type="button"><img className="w-12" src="https://img.icons8.com/cute-clipart/64/000000/pencil.png"/></button>
-                        <button className="border-none mx-1 w-6 focus:outline-none fal fa-edit rounded-full " type="button"
+                        }} className="mx-1 w-6 focus:outline-none" type="button"><i class="far fa-edit"></i></button>
+                        <button className="mx-1 w-6 focus:outline-none" type="button"
                           onClick={async () => {
                             await axios.post('/api/Datas/delete', { id: user.id }).then(data => {
                               console.log("Deleted")
                             }).catch(err => {
                               console.log(err);
                             })
-                          }} ><img className="w-12" src="https://img.icons8.com/plasticine/100/000000/trash--v1.png"/></button>
-                        <button onClick={() => {
-                          setOneUser(user);
-                          setShowModal(true);
-                        }} className="border-none mx-1 w-6 focus:outline-none fal fa-edit rounded-full " type="button" ><img className="w-12" src="https://img.icons8.com/bubbles/50/000000/visible--v2.png"/></button>
+                          }} ><i class="fas fa-trash"></i></button>
                       </td>
                     </tr>
                   );
@@ -114,13 +101,7 @@ const datTable = (props) => {
         setShowUpdateModal(!showUpdateModal);
       }} >
         {oneUser ? <Forma data = {oneUser} {...props} /> : <Forma  {...props} />}
-        {/* ok */}
       </Modal>
-      {/* <UpdateForm data={oneUser}
-        show={showUpdateModal}
-        onClick={() => {
-          setShowUpdateModal(!showUpdateModal);
-        }} /> */}
     </div>
 
   );

@@ -158,10 +158,8 @@ const BasicWithHTML = (props) => {
     formik.setValues(data)
   }, [props.data]);
 
-
   const router = useRouter();
-
-
+  console.log(props.data)
   return (
     <div className="w-full h-screen">
       <form
@@ -225,7 +223,6 @@ const BasicWithHTML = (props) => {
             </div>
           ) : null}
         </div>
-
         <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12">
           <label htmlFor="inn">
             STIR:<span className="text-red-600 font-extrabold"> *</span>{" "}
@@ -251,6 +248,7 @@ const BasicWithHTML = (props) => {
             id="type"
             name="type"
             options={types}
+            defaultValue="юридик шахс"
             onBlur={() => {
               formik.setFieldTouched("type", true);
             }}
@@ -384,7 +382,6 @@ const BasicWithHTML = (props) => {
                 ? underCategories
                 : [{ value: " ", label: " " }]
             }
-            // onChange={formik.handleChange}
             onBlur={() => {
               formik.setFieldTouched("underCategory", true);
             }}
@@ -510,7 +507,7 @@ const BasicWithHTML = (props) => {
             Сохранить
           </button>
           <button
-            onClick={() => router.push("/containers/Form/dataTable")}
+            onClick={() => router.push("/")}
             type="button"
             className="text-yellow-600 border-yellow-600 bg-white hover:text-white hover:bg-yellow-600 hover:border-yellow-900 border-2 font-bold transition duration-300 ease-in-out px-3 py-2"
           >

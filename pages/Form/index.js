@@ -8,7 +8,7 @@ export const getStaticProps = async () => {
     const categories = await prisma.category.findMany();
     const underCategory = await prisma.underCategory.findMany();
     const themes = await prisma.theme.findMany();
-    console.log(await prisma.datas.findMany());
+    
     return {
         props: {
             categories: categories,
@@ -18,10 +18,10 @@ export const getStaticProps = async () => {
         }
     }
 }
+
 const Form = (props) => {
     return ( 
         <>
-            {/* <Basic {...props} /> */}
             <Forma {...props}/>
         </>
      );
