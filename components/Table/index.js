@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import BasicWithHTML from "../Basic/formikHtml";
+import Forma from "../Forma";
 import Modal from "../Modal";
 // import Modal from "./modal";
 // import UpdateForm from "./updateForm";
@@ -27,7 +27,7 @@ const datTable = (props) => {
         <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
           <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
             <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-green-300  text-white">
+              <thead className="bg-blue-500 text-white">
                 <tr>
                   <th scope="col" className=" py-3 text-center text-xs font-medium  uppercase tracking-wider">
                     author
@@ -51,7 +51,7 @@ const datTable = (props) => {
                     email
                 </th>
                   <th scope="col" className="relative  py-3">
-                    <span className="sr-only">Edit</span>
+                    Edit
                   </th>
                 </tr>
               </thead>
@@ -84,8 +84,7 @@ const datTable = (props) => {
                       <td className=" py-4  whitespace-nowrap text-sm text-gray-500">
                         {user.email}
                       </td>
-                      <td className="pr-4 py-4  whitespace-nowrap text-left text-sm font-medium">
-                        <i className="fas fa-edit"></i>
+                      <td className="pr-4 py-4 flex justify-center whitespace-nowrap text-left text-sm font-medium">
                         <button onClick={() => {
                           setOneUser(user);
                           setShowUpdateModal(true)
@@ -93,7 +92,7 @@ const datTable = (props) => {
                         <button className="border-none mx-1 w-6 focus:outline-none fal fa-edit rounded-full " type="button"
                           onClick={async () => {
                             await axios.post('/api/Datas/delete', { id: user.id }).then(data => {
-                              window.location.reload();
+                              console.log("Deleted")
                             }).catch(err => {
                               console.log(err);
                             })
@@ -114,7 +113,7 @@ const datTable = (props) => {
       <Modal show={showUpdateModal}  data={oneUser} onClick={() => {
         setShowUpdateModal(!showUpdateModal);
       }} >
-        {oneUser ? <BasicWithHTML data = {oneUser} {...props} /> : <BasicWithHTML  {...props} />}
+        {oneUser ? <Forma data = {oneUser} {...props} /> : <Forma  {...props} />}
         {/* ok */}
       </Modal>
       {/* <UpdateForm data={oneUser}

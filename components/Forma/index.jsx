@@ -127,9 +127,9 @@ const BasicWithHTML = (props) => {
 
     onSubmit: async (values) => {
       await axios
-        .post(`/api/Datas/${props.data ? "put" : "create"}`, props.data ? {id: props.data.id, value : values} : values)
+        .post(`/api/Datas/${props.data ? "put" : "create"}`, props.data ? { id: props.data.id, value: values } : values)
         .then((res) => {
-          router.push("/containers/Form/dataTable");
+          router.push("/");
         })
         .catch((err) => {
           console.log(err);
@@ -160,15 +160,15 @@ const BasicWithHTML = (props) => {
 
 
   const router = useRouter();
-  
+
 
   return (
-    <div className="container mx-auto md:w-4/5 xl:w-3/5">
+    <div className="w-full h-screen">
       <form
         onSubmit={formik.handleSubmit}
-        className="grid gap-4  md:grid-cols-12 sm:grid-cols-12 sm:px-4  xl:grid-cols-12 px-8 py-10"
+        className="grid gap-4 md:grid-cols-12 sm:grid-cols-12 xl:grid-cols-12"
       >
-        <div className="md:col-span-12 bg-blue-300 py-10 px-6 lg:col-span-12 sm:col-span-12 grid md:grid-cols-12 sm:grid-cols-12   xl:grid-cols-12 gap-4">
+        <div className="md:col-span-12 bg-blue-500 py-5 px-6 lg:col-span-12 sm:col-span-12 grid md:grid-cols-12 sm:grid-cols-12   xl:grid-cols-12 gap-4">
           <div className="md:col-span-6 lg:col-span-6 sm:col-span-12">
             <label htmlFor="operator">
               Оператор:<span className="text-red-600 font-extrabold"> *</span>{" "}
@@ -206,7 +206,7 @@ const BasicWithHTML = (props) => {
           </div>
         </div>
 
-        <div className="md:col-span-12 lg:col-span-12 sm:col-span-12">
+        <div className="px-6 md:col-span-12 lg:col-span-12 sm:col-span-12">
           <label htmlFor="referenceContent">
             Содержание обращения:
             <span className="text-red-600 font-extrabold"> *</span>{" "}
@@ -226,7 +226,7 @@ const BasicWithHTML = (props) => {
           ) : null}
         </div>
 
-        <div className="md:col-span-6 lg:col-span-4 sm:col-span-12">
+        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12">
           <label htmlFor="inn">
             STIR:<span className="text-red-600 font-extrabold"> *</span>{" "}
           </label>
@@ -243,7 +243,7 @@ const BasicWithHTML = (props) => {
           ) : null}
         </div>
 
-        <div className="md:col-span-6 lg:col-span-4 sm:col-span-12">
+        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12">
           <label htmlFor="type">
             Типы:<span className="text-red-600 font-extrabold"> *</span>{" "}
           </label>
@@ -263,7 +263,7 @@ const BasicWithHTML = (props) => {
           ) : null}
         </div>
 
-        <div className="md:col-span-6 lg:col-span-4 sm:col-span-12">
+        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12">
           <label htmlFor="author">
             Автор обращения:
             <span className="text-red-600 font-extrabold"> *</span>{" "}
@@ -283,7 +283,7 @@ const BasicWithHTML = (props) => {
           ) : null}
         </div>
 
-        <div className="md:col-span-6 lg:col-span-4 sm:col-span-12">
+        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12">
           <label htmlFor="province">
             Область:<span className="text-red-600 font-extrabold"> *</span>{" "}
           </label>
@@ -303,7 +303,7 @@ const BasicWithHTML = (props) => {
           ) : null}
         </div>
 
-        <div className="md:col-span-6 lg:col-span-4 sm:col-span-12">
+        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12">
           <label htmlFor="destrict">
             Район/город:<span className="text-red-600 font-extrabold"> *</span>{" "}
           </label>
@@ -322,7 +322,7 @@ const BasicWithHTML = (props) => {
           ) : null}
         </div>
 
-        <div className="md:col-span-6 lg:col-span-4 sm:col-span-12">
+        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12">
           <label htmlFor="address">
             Адрес:<span className="text-red-600 font-extrabold"> *</span>{" "}
           </label>
@@ -341,7 +341,7 @@ const BasicWithHTML = (props) => {
           ) : null}
         </div>
 
-        <div className="md:col-span-6 lg:col-span-4 sm:col-span-12">
+        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12">
           <label htmlFor="category">
             Категория:<span className="text-red-600 font-extrabold"> *</span>{" "}
           </label>
@@ -365,7 +365,7 @@ const BasicWithHTML = (props) => {
           ) : null}
         </div>
 
-        <div className="md:col-span-6 lg:col-span-4 sm:col-span-12">
+        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12">
           <label htmlFor="underCategory">
             Под категория:
             <span className="text-red-600 font-extrabold"> *</span>{" "}
@@ -400,7 +400,7 @@ const BasicWithHTML = (props) => {
           ) : null}
         </div>
 
-        <div className="md:col-span-6 lg:col-span-4 sm:col-span-12">
+        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12">
           <label htmlFor="theme">
             Тема:<span className="text-red-600 font-extrabold"> *</span>{" "}
           </label>
@@ -427,7 +427,7 @@ const BasicWithHTML = (props) => {
             <div className="text-red-900 font-bold">{formik.errors.theme}</div>
           ) : null}
         </div>
-        <div className="md:col-span-6 lg:col-span-4 sm:col-span-12">
+        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12">
           <label htmlFor="phone">
             Телефон:<span className="text-red-600 font-extrabold"> *</span>{" "}
           </label>
@@ -444,7 +444,7 @@ const BasicWithHTML = (props) => {
           ) : null}
         </div>
 
-        <div className="md:col-span-6 lg:col-span-4 sm:col-span-12">
+        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12">
           <label htmlFor="email">
             email:<span className="text-red-600 font-extrabold"> *</span>{" "}
           </label>
@@ -462,7 +462,7 @@ const BasicWithHTML = (props) => {
         </div>
 
         <hr className="col-span-12 hidden lg:block  xl:block 2xl:block lg:block" />
-        <div className="md:col-span-6 lg:col-span-4 sm:col-span-12">
+        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12">
           <label htmlFor="reviewResult">
             Результат рассмотрения:
             <span className="text-red-600 font-extrabold"> *</span>{" "}
@@ -482,7 +482,7 @@ const BasicWithHTML = (props) => {
           ) : null}
         </div>
 
-        <div className="md:col-span-12 lg:col-span-8 sm:col-span-12">
+        <div className="px-6 md:col-span-12 lg:col-span-8 sm:col-span-12">
           <label htmlFor="comment">
             Примечание: <span className="text-red-600 font-extrabold"> *</span>
           </label>
@@ -510,7 +510,7 @@ const BasicWithHTML = (props) => {
             Сохранить
           </button>
           <button
-          onClick={()=>router.push("/containers/Form/dataTable")}
+            onClick={() => router.push("/containers/Form/dataTable")}
             type="button"
             className="text-yellow-600 border-yellow-600 bg-white hover:text-white hover:bg-yellow-600 hover:border-yellow-900 border-2 font-bold transition duration-300 ease-in-out px-3 py-2"
           >

@@ -1,5 +1,5 @@
 import { PrismaClient } from ".prisma/client"
-import BasicWithHTML from "../../../components/Basic/formikHtml";
+import Forma from "../../components/Forma";
 export const getStaticProps = async () => {
     const prisma = new PrismaClient()
     
@@ -22,7 +22,7 @@ const Form = (props) => {
     return ( 
         <>
             {/* <Basic {...props} /> */}
-            <BasicWithHTML {...props}/>
+            <Forma {...props}/>
         </>
      );
 }
