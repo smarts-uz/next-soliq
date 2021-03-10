@@ -127,9 +127,8 @@ const BasicWithHTML = (props) => {
 
     onSubmit: async (values) => {
       await axios
-        .post("/api/Datas/create", values)
+        .post(`/api/Datas/${props.data ? "put" : "create"}`, props.data ? {id: props.data.id, value : values} : values)
         .then((res) => {
-          // console.log(res);
           router.push("/containers/Form/dataTable");
         })
         .catch((err) => {
@@ -252,13 +251,10 @@ const BasicWithHTML = (props) => {
             id="type"
             name="type"
             options={types}
-            // onChange={formik.handleChange}
             onBlur={() => {
               formik.setFieldTouched("type", true);
             }}
-            onChange={(opt, e) => {
-              console.log(opt, e);
-
+            onChange={(opt) => {
               formik.setFieldValue("type", opt.value);
             }}
           />
@@ -357,8 +353,7 @@ const BasicWithHTML = (props) => {
             onBlur={() => {
               formik.setFieldTouched("category", true);
             }}
-            onChange={(opt, e) => {
-              console.log(opt, e);
+            onChange={(opt) => {
               getSelectByIdForCategory(opt);
               formik.setFieldValue("category", opt.value);
             }}
@@ -393,8 +388,7 @@ const BasicWithHTML = (props) => {
             onBlur={() => {
               formik.setFieldTouched("underCategory", true);
             }}
-            onChange={(opt, e) => {
-              console.log(opt, e);
+            onChange={(opt) => {
               getSelectByIdForUnderCategory(opt);
               formik.setFieldValue("underCategory", opt.value);
             }}
@@ -422,12 +416,10 @@ const BasicWithHTML = (props) => {
                 return;
               }
             }}
-            // onChange={formik.handleChange}
             onBlur={() => {
               formik.setFieldTouched("theme", true);
             }}
-            onChange={(opt, e) => {
-              console.log(opt, e);
+            onChange={(opt) => {
               formik.setFieldValue("theme", opt.value);
             }}
           />
@@ -518,6 +510,7 @@ const BasicWithHTML = (props) => {
             Сохранить
           </button>
           <button
+          onClick={()=>router.push("/containers/Form/dataTable")}
             type="button"
             className="text-yellow-600 border-yellow-600 bg-white hover:text-white hover:bg-yellow-600 hover:border-yellow-900 border-2 font-bold transition duration-300 ease-in-out px-3 py-2"
           >

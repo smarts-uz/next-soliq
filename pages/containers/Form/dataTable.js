@@ -15,7 +15,6 @@ export const getStaticProps = async () => {
     const underCategory = await prisma.underCategory.findMany();
     const themes = await prisma.theme.findMany();
     const datas = await prisma.datas.findMany();
-    console.log(await prisma.datas.findMany());
     return {
         props: {
             categories: toJson(categories),
@@ -29,7 +28,7 @@ export const getStaticProps = async () => {
 const dataTable = (props) => {
     return (
         <>
-            <div className="flex flex-col justify-center md:px-32 h-screen">
+            <div className="flex flex-col py-5 md:px-32 h-screen">
                 <div className="flex justify-end">
                     <button onClick = { () => {
                         router.push('/containers/Form');
