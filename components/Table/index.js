@@ -1,15 +1,12 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Forma from "../Forma";
 import Modal from "../Modal";
-// import Modal from "./modal";
-// import UpdateForm from "./updateForm";
 
 
 const datTable = (props) => {
   
   const [oneUser, setOneUser] = useState(null);
-  const [showModal, setShowModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
 
   return (
@@ -46,14 +43,12 @@ const datTable = (props) => {
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg- divide-y divide-white">
+              <tbody className="divide-y divide-white">
                 {props.users.map(user => {
                   return (
                     <tr key={user.id} className="bg-white hover:bg-gray-200">
-                      <td className="  whitespace-nowrap">
-                        
+                      <td className="whitespace-nowrap">
                           <div className="text-sm text-gray-900 text-center">{user.author}</div>
-                        
                       </td>
                       <td className=" py-4  whitespace-nowrap">
                         <div className="text-sm text-gray-900">{user.inn}</div>

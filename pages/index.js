@@ -26,6 +26,7 @@ export const getStaticProps = async () => {
         }
     }
 }
+
 const dataTable = (props) => {
     return (
         <Layout>

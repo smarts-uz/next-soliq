@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
-import * as Yup from "yup";
 import Select from "react-select";
 import axios from "axios";
 import { useRouter } from "next/router";
-import "yup-phone";
+import validateForm from '../../unlits/validate-form'
 
 const BasicWithHTML = (props) => {
   // console.log(props.data);
@@ -69,61 +68,7 @@ const BasicWithHTML = (props) => {
       comment: props.data ? props.data.comment : "",
     },
 
-    validationSchema: Yup.object({
-      operator: Yup.string()
-        .min(6, "Оператор должен состоять не менее чем из 6 символов")
-        .max(50, "Оператор должен состоять не более чем из 50 символов")
-        .required("Оператор является обязательным полем"),
-      fio: Yup.string()
-        .min(6, "Ф.И.О должен состоять не менее чем из 6 символов")
-        .max(50, "Ф.И.О должен состоять не более чем из 50 символов")
-        .required("Ф.И.О является обязательным полем"),
-      referenceContent: Yup.string()
-        .min(100, "Содержание обращения должно содержать не менее 100 символов")
-        .max(
-          1024,
-          "Содержание обращения должен состоять не более чем из 50 символов"
-        )
-        .required("Обязательное поле"),
-      inn: Yup.number()
-        .min(6, "Слишком коротко!")
-        .max(999999999999, "Слишком Долго!")
-        .required("Обязательное поле"),
-      type: Yup.string()
-        .min(3, "Слишком коротко!")
-        .max(50, "Слишком Долго!")
-        .required("Обязательное поле"),
-
-      author: Yup.string()
-        .min(3, "Слишком коротко!")
-        .max(50, "Слишком Долго!")
-        .required("Обязательное поле"),
-      province: Yup.string()
-        .min(3, "Слишком коротко!")
-        .max(50, "Слишком Долго!")
-        .required("Обязательное поле"),
-      destrict: Yup.string()
-        .min(3, "Слишком коротко!")
-        .max(50, "Слишком Долго!")
-        .required("Обязательное поле"),
-      address: Yup.string()
-        .min(3, "Слишком коротко!")
-        .max(50, "Слишком Долго!")
-        .required("Обязательное поле"),
-      phone: Yup.string()
-        .phone("UZ")
-        .required(
-          "Телефон должен быть действующим номером телефона для региона Узбекистан"
-        ),
-      email: Yup.string()
-        .email("Неверный адрес электронной почты")
-        .required("Обязательное поле"),
-      category: Yup.string().required("Обязательное поле!"),
-      underCategory: Yup.string().required("Обязательное поле!"),
-      theme: Yup.string().required("Обязательное поле!"),
-      reviewResult: Yup.string().required("Обязательное поле!"),
-      comment: Yup.string().min(100).max(1024).required("Обязательное поле!"),
-    }),
+    validationSchema: validateForm,
 
     onSubmit: async (values) => {
       await axios
@@ -158,8 +103,9 @@ const BasicWithHTML = (props) => {
     formik.setValues(data)
   }, [props.data]);
 
+
   const router = useRouter();
-  console.log(props.data)
+
   return (
     <div className="w-full h-screen">
       <form
@@ -229,6 +175,7 @@ const BasicWithHTML = (props) => {
           </label>
           <input
             type="number"
+            min={0}
             className="w-full h-9 rounded border-2 focus:border-blue-500 border-gray-300 px-4 focus:outline-none"
             name="inn"
             onBlur={formik.handleBlur}
@@ -248,7 +195,7 @@ const BasicWithHTML = (props) => {
             id="type"
             name="type"
             options={types}
-            defaultValue="юридик шахс"
+            value={types.filter(opt => opt.label === formik.values.type)}
             onBlur={() => {
               formik.setFieldTouched("type", true);
             }}
@@ -347,7 +294,7 @@ const BasicWithHTML = (props) => {
             id="category"
             name="category"
             options={categories}
-            // onChange={formik.handleChange}
+            value={categories.filter(opt => opt.label === formik.values.category)}
             onBlur={() => {
               formik.setFieldTouched("category", true);
             }}
@@ -382,6 +329,7 @@ const BasicWithHTML = (props) => {
                 ? underCategories
                 : [{ value: " ", label: " " }]
             }
+            value={underCategories.filter(opt => opt.label === formik.values.underCategory)}
             onBlur={() => {
               formik.setFieldTouched("underCategory", true);
             }}
@@ -407,6 +355,7 @@ const BasicWithHTML = (props) => {
             options={
               formik.values.underCategory ? themes : [{ value: "", label: "" }]
             }
+            value={themes.filter(opt => opt.label === formik.values.theme)}
             onFocus={() => {
               if (!formik.values.underCategory) {
                 alert("Iltimos kategoriya ostini tanlang!!!");
