@@ -117,8 +117,19 @@ const BasicWithHTML = (props) => {
       e.preventDefault();
       await axios.post('/api/Person/yur', {
         inn: formik.values.inn,
-      }).then((res) => {
-        console.log(res)
+      }).then(async (res) => {
+        const obl = []
+        const ray = []
+
+        await axios.post("/api/Location/provinces", {
+          obl: res.data.data.ns10_code
+        }).then(response => { obl.push(response.data[0]) })
+
+        await axios.post("/api/Location/destrict", {
+          ray: res.data.data.ns10_code
+        }).then(response => { ray.push(response.data[0]) })
+
+
         if (res.data.success === false) {
           alert("Ushbu INN Buyicha Malumot Topilmadi")
         } else {
@@ -131,8 +142,8 @@ const BasicWithHTML = (props) => {
             passport_series: formik.values.passport_series,
             passport_number: formik.values.passport_number,
             author: res.data.data.company_name,
-            province: formik.values.province,
-            destrict: formik.values.destrict,
+            province: obl[0].name_uz,
+            destrict: ray[0].name_uz,
             address: res.data.data.adress,
             phone: formik.values.phone,
             email: formik.values.email,
@@ -155,15 +166,16 @@ const BasicWithHTML = (props) => {
         const obl = []
         const ray = []
 
+        console.log(ray)
+
         await axios.post("/api/Location/provinces", {
           obl: res.data.data.ns10_code
         }).then(response => { obl.push(response.data[0]) })
 
         await axios.post("/api/Location/destrict", {
-          ray: res.data.data.ns11_code
+          ray: res.data.data.ns10_code
         }).then(response => { ray.push(response.data[0]) })
 
-        console.log(obl)
 
         if (res.data.success === false) {
           alert("Ushbu INN Buyicha Malumot Topilmadi")
@@ -178,7 +190,7 @@ const BasicWithHTML = (props) => {
             passport_number: formik.values.passport_number,
             author: res.data.data.company_name,
             province: obl[0].name_uz,
-            destrict: formik.values.destrict,
+            destrict: ray[0].name_uz,
             address: res.data.data.adress,
             phone: formik.values.phone,
             email: formik.values.email,
@@ -198,14 +210,6 @@ const BasicWithHTML = (props) => {
 
   return (
     <div className="w-full bg-white">
-      <button onClick={() => {
-        axios.post('/api/Provinces/create')
-          .then(data => {
-            console.log(data);
-          }).catch(err => {
-            console.log(err);
-          })
-      }}>Save datas</button>
       <form
         onSubmit={formik.handleSubmit}
         className="grid gap-4 md:grid-cols-12 sm:grid-cols-12 xl:grid-cols-12"

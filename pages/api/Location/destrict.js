@@ -6,7 +6,7 @@ export default (req, res) => {
 
   if(req.method === "POST" ){
 
-        prisma.destrict.findMany({
+        prisma.destricts.findMany({
             where:{
               row_obl: req.body.ray
             }
