@@ -3,8 +3,7 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 export default async (req, res) => {
-    let username = 'test';
-    let password = '123456789';
+
     let headers = new Headers();
     console.log(req.body)
     headers.set('Authorization', 'Basic ' + 'dGVzdDoxMjM0NTY3ODk=');
@@ -13,26 +12,13 @@ export default async (req, res) => {
         lang: "uz"
     }, {
         auth: {
-            username: username,
-            password: password
+            username: process.env.LOGIN,
+            password: process.env.PWS
         }
     }).then(response => {
-        prisma.legalEntity.createMany({
-            data: [
-                response.data.data
-            ],
-            skipDuplicates: true
-        }).then(ok => {
             console.log("Success");
+            res.status(200).json(response.data)
         }).catch(err => {
-            console.log(err);
-        })
-
-
-        res.status(200).json(response.data)
-
-    })
-        .catch(err => {
             console.log(err);
         })
 

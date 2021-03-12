@@ -111,15 +111,21 @@ const BasicWithHTML = (props) => {
   const handleStirChange = async (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      await axios.post("/api/LegalEntity/get", {
+      await axios.post(`/api/Person/${formik.values.type === types[0].value ? "fiz" : "yur"}`, {
         inn: formik.values.inn
       }).then((res) => {
-        const newData = {
-          author: res.data.data.gd_name,
-          address: res.data.data.adress,
+        console.log(res)
+        if (res.data.success === false) {
+          alert("Ushbu INN Buyicha Malumot Topilmadi")
+        } else {
+          const NewData = {
+            type: formik.values.type,
+            inn: formik.values.inn,
+            author: res.data.data.company_name,
+            address: res.data.data.adress,
+          }
+          formik.setValues(NewData)
         }
-        console.log(newData)
-        formik.setValues(newData)
       })
     }
   }

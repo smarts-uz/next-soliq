@@ -30,7 +30,7 @@ export const validateForm = ()=> {
 
       author: Yup.string()
         .min(3, "Слишком коротко!")
-        .max(50, "Слишком Долго!")
+        .max(100, "Слишком Долго!")
         .required("Обязательное поле"),
       province: Yup.string()
         .min(3, "Слишком коротко!")
