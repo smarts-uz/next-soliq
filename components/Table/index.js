@@ -10,7 +10,7 @@ const datTable = (props) => {
   const [showUpdateModal, setShowUpdateModal] = useState(false);
 
   return (
-    <div className="flex flex-col text-center w-full overflow-hidden">
+    <div className="flex flex-col shadow text-center w-full overflow-hidden">
       <div className="-my-2 overflow-x-auto ">
         <div className="py-2 align-middle inline-block min-w-full">
           <div className="shadow overflow-hidden border-b border-gray-200">

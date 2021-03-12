@@ -5,7 +5,6 @@ const prisma = new PrismaClient();
 export default async (req, res) => {
 
     let headers = new Headers();
-    console.log(req.body)
     headers.set('Authorization', 'Basic ' + 'dGVzdDoxMjM0NTY3ODk=');
     await axios.post('https://ws.soliqservis.uz/gnk/data/yurnp1', {
         company_tin: req.body.inn,

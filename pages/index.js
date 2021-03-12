@@ -37,15 +37,17 @@ const dataTable = (props) => {
       const [showUpdateModal, setShowUpdateModal] = useState(false);
     return (
         <Layout>
-            <div className="w-4/5 mx-auto rounded">
-                <div className="flex border-b-2 border-black justify-between bg-white items-center py-5 px-6">
+            <div className="rounded">
+                <div className="flex justify-between bg-white shadow items-center py-5 px-6">
                     <h1 className="text-2xl font-bold text-black ">Manage Employers</h1>
                     <button onClick = { () =>setShowUpdateModal(true)} className = "bg-blue-500 hover:bg-blue-400 duration-300 px-6 focus:outline-none rounded text-white text-sm font-medium uppercase font-normal py-2">
                         <i class="fas fa-user-plus"></i>
                         <span className="pl-3">Create</span>
                     </button>
                 </div>
-                    <Table categories = {props.categories} underCategories = {props.underCategories} themes = {props.themes} types = {props.types} users = {props.datas ? props.datas : []} />
+                    <div className="mt-5 mx-5">
+                        <Table categories = {props.categories} underCategories = {props.underCategories} themes = {props.themes} types = {props.types} users = {props.datas ? props.datas : []} />
+                    </div>
                     
                     <Modal show={showUpdateModal} onClick={() => { setShowUpdateModal(!showUpdateModal) }} >
                         <Forma closeModal={()=>setShowUpdateModal(false)} {...props} />

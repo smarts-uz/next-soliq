@@ -1,16 +1,14 @@
 import axios from "axios"
-import { PrismaClient } from "@prisma/client";
 
 export default async (req, res) => {
 
     let headers = new Headers();
-    console.log(req.body)
     headers.set('Authorization', 'Basic ' + 'dGVzdDoxMjM0NTY3ODk=');
     await axios.post('https://ws.soliqservis.uz/gnk/data/fiznp1', {
         tin: req.body.inn,
         pinfl :"",
-        series_passport: "AB",
-        number_passport: "0667841",
+        series_passport: req.body.PS,
+        number_passport: req.body.PN,
         lang: "uz"
     }, {
         auth: {
