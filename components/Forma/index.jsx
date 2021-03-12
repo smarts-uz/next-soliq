@@ -3,7 +3,8 @@ import { useFormik } from "formik";
 import Select from "react-select";
 import axios from "axios";
 import { useRouter } from "next/router";
-import validateForm from '../../unlits/validate-form'
+import { validateForm } from '../../unlits/validate-form'
+import { data } from "autoprefixer";
 
 const BasicWithHTML = (props) => {
   // console.log(props.data);
@@ -104,10 +105,27 @@ const BasicWithHTML = (props) => {
   }, [props.data]);
 
 
+
   const router = useRouter();
 
+  const handleStirChange = async (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      await axios.post("/api/LegalEntity/get", {
+        inn: formik.values.inn
+      }).then((res) => {
+        const newData = {
+          author: res.data.data.gd_name,
+          address: res.data.data.adress,
+        }
+        console.log(newData)
+        formik.setValues(newData)
+      })
+    }
+  }
+
   return (
-    <div className="w-full h-screen">
+    <div className="w-full bg-white">
       <form
         onSubmit={formik.handleSubmit}
         className="grid gap-4 md:grid-cols-12 sm:grid-cols-12 xl:grid-cols-12"
@@ -169,23 +187,6 @@ const BasicWithHTML = (props) => {
             </div>
           ) : null}
         </div>
-        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12">
-          <label htmlFor="inn">
-            STIR:<span className="text-red-600 font-extrabold"> *</span>{" "}
-          </label>
-          <input
-            type="number"
-            min={0}
-            className="w-full h-9 rounded border-2 focus:border-blue-500 border-gray-300 px-4 focus:outline-none"
-            name="inn"
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
-            value={formik.values.inn}
-          />
-          {formik.touched.inn && formik.errors.inn ? (
-            <div className="text-red-900 font-bold">{formik.errors.inn}</div>
-          ) : null}
-        </div>
 
         <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12">
           <label htmlFor="type">
@@ -205,6 +206,25 @@ const BasicWithHTML = (props) => {
           />
           {formik.touched.type && formik.errors.type ? (
             <div className="text-red-900 font-bold">{formik.errors.type}</div>
+          ) : null}
+        </div>
+
+        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12">
+          <label htmlFor="inn">
+            STIR:<span className="text-red-600 font-extrabold"> *</span>{" "}
+          </label>
+          <input
+            type="number"
+            min={0}
+            className="w-full h-9 rounded border-2 focus:border-blue-500 border-gray-300 px-4 focus:outline-none"
+            name="inn"
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+            value={formik.values.inn}
+            onKeyPress={handleStirChange}
+          />
+          {formik.touched.inn && formik.errors.inn ? (
+            <div className="text-red-900 font-bold">{formik.errors.inn}</div>
           ) : null}
         </div>
 
@@ -449,19 +469,11 @@ const BasicWithHTML = (props) => {
 
         <div className="flex justify-around space-x-4 text-center sm:col-start-7 sm:col-end-13     md:col-span-4 md:col-start-9 xl:col-span-2 xl:col-start-6">
           <button
+            onClick={formik.isValid ? props.closeModal : null}
             type="submit"
             className="text-blue-600 border-blue-600 bg-white  hover:text-white hover:bg-blue-600 hover:border-blue-900 border-2 font-bold transition duration-300 ease-in-out px-3 py-2"
           >
-            {" "}
             Сохранить
-          </button>
-          <button
-            onClick={() => router.push("/")}
-            type="button"
-            className="text-yellow-600 border-yellow-600 bg-white hover:text-white hover:bg-yellow-600 hover:border-yellow-900 border-2 font-bold transition duration-300 ease-in-out px-3 py-2"
-          >
-            {" "}
-            Выход
           </button>
         </div>
       </form>

@@ -1,8 +1,9 @@
 import "yup-phone";
 import * as Yup from "yup";
 
-const validate = () => {
-  const validationSchema = Yup.object({
+
+export const validateForm = ()=> { 
+  return Yup.object({
       operator: Yup.string()
         .min(6, "Оператор должен состоять не менее чем из 6 символов")
         .max(50, "Оператор должен состоять не более чем из 50 символов")
@@ -56,9 +57,13 @@ const validate = () => {
       theme: Yup.string().required("Обязательное поле!"),
       reviewResult: Yup.string().required("Обязательное поле!"),
       comment: Yup.string().min(100).max(1024).required("Обязательное поле!"),
-    });
+    });}
 
-    return validationSchema
+export const validateReg = ()=>{
+  return Yup.object({
+    fullname: Yup.string().min(4).max(50).required(),
+    operator: Yup.string().required(),
+    password: Yup.string().min(6).required(),
+    confirm_password: Yup.string().min(6).required(),
+  })
 }
-
-export default validate

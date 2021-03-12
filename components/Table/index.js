@@ -78,6 +78,7 @@ const datTable = (props) => {
                         <button className="mx-1 w-6 focus:outline-none" type="button"
                           onClick={async () => {
                             await axios.post('/api/Datas/delete', { id: user.id }).then(data => {
+                              window.location.reload()
                               console.log("Deleted")
                             }).catch(err => {
                               console.log(err);
@@ -95,7 +96,7 @@ const datTable = (props) => {
       <Modal show={showUpdateModal}  data={oneUser} onClick={() => {
         setShowUpdateModal(!showUpdateModal);
       }} >
-        {oneUser ? <Forma data = {oneUser} {...props} /> : <Forma  {...props} />}
+        {oneUser ? <Forma closeModal={()=>setShowUpdateModal(false)} data = {oneUser} {...props} /> : <Forma  {...props} />}
       </Modal>
     </div>
 
