@@ -61,7 +61,7 @@ const datTable = (props) => {
                       <td className=" py-4  whitespace-nowrap text-sm text-gray-500">
                         {user.destrict}
                       </td>
-                      <td className=" py-4  whitespace-nowrap text-sm text-gray-500">
+                      <td className=" py-4 break-all  whitespace-nowrap text-sm text-gray-500">
                         {user.address}
                       </td>
                       <td className=" py-4  whitespace-nowrap text-sm text-gray-500">

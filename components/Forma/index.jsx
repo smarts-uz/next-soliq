@@ -198,6 +198,14 @@ const BasicWithHTML = (props) => {
 
   return (
     <div className="w-full bg-white">
+      <button onClick={() => {
+        axios.post('/api/Provinces/create')
+          .then(data => {
+            console.log(data);
+          }).catch(err => {
+            console.log(err);
+          })
+      }}>Save datas</button>
       <form
         onSubmit={formik.handleSubmit}
         className="grid gap-4 md:grid-cols-12 sm:grid-cols-12 xl:grid-cols-12"
