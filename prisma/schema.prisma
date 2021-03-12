@@ -18,6 +18,14 @@ model Provinces {
   row_obl Int
 }
 
+model Destricts {
+  id      Int @id @default(autoincrement())
+  name_uz String
+  name_ru String
+  row_obl Int
+  row_ray Int
+}
+
 model PhysicalPerson {
   id              Int    @id @default(autoincrement())
   ns10_code       Int
@@ -64,39 +72,38 @@ model UnderCategory {
   name       String
   author     Category @relation(fields: [categoryId], references: [id])
   categoryId Int
-  themes    Theme[]
+  themes     Theme[]
 }
 
 model Theme {
-  id   Int    @id @default(autoincrement())
-  name String
-  underCategory UnderCategory @relation(fields: [underCategoryId], references: [id])
+  id              Int           @id @default(autoincrement())
+  name            String
+  underCategory   UnderCategory @relation(fields: [underCategoryId], references: [id])
   underCategoryId Int
 }
 
-
 model datas {
-  id Int @id @default(autoincrement())
-  operator String
-  fio String
+  id               Int      @id @default(autoincrement())
+  operator         String
+  fio              String
   // numberOfCalls String
   // history String
   referenceContent String
-  inn Int @unique()
-  type String
-  passport_series String? @unique()
-  passport_number String? @unique()
-  author String
-  province String
-  destrict String
-  address String
-  phone String @unique()
-  email String @unique()
-  category String
-  underCategory String
-  theme String
-  reviewResult String
-  comment String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  inn              Int      @unique
+  type             String
+  passport_series  String?  @unique
+  passport_number  String?  @unique
+  author           String
+  province         String
+  destrict         String
+  address          String
+  phone            String   @unique
+  email            String   @unique
+  category         String
+  underCategory    String
+  theme            String
+  reviewResult     String
+  comment          String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @default(now())
 }
