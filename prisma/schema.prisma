@@ -82,14 +82,16 @@ model datas {
   // numberOfCalls String
   // history String
   referenceContent String
-  inn Int
+  inn Int @unique()
   type String
+  passport_series String? @unique()
+  passport_number String? @unique()
   author String
   province String
   destrict String
   address String
-  phone String
-  email String
+  phone String @unique()
+  email String @unique()
   category String
   underCategory String
   theme String

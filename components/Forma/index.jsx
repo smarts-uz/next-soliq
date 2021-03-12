@@ -56,6 +56,8 @@ const BasicWithHTML = (props) => {
       referenceContent: props.data ? props.data.referenceContent : "",
       inn: props.data ? props.data.inn : "",
       type: props.data ? props.data.type : "",
+      passport_series: props.data ? props.data.passport_series : "",
+      passport_number: props.data ? props.data.passport_number : "",
       author: props.data ? props.data.author : "",
       province: props.data ? props.data.province : "",
       destrict: props.data ? props.data.destrict : "",
@@ -89,6 +91,8 @@ const BasicWithHTML = (props) => {
       referenceContent: props.data ? props.data.referenceContent : "",
       inn: props.data ? props.data.inn : "",
       type: props.data ? props.data.type : "",
+      passport_series: props.data ? props.data.passport_series : "",
+      passport_number: props.data ? props.data.passport_number : "",
       author: props.data ? props.data.author : "",
       province: props.data ? props.data.province : "",
       destrict: props.data ? props.data.destrict : "",
@@ -226,6 +230,46 @@ const BasicWithHTML = (props) => {
           {formik.touched.inn && formik.errors.inn ? (
             <div className="text-red-900 font-bold">{formik.errors.inn}</div>
           ) : null}
+        </div>
+
+        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12 grid md:grid-cols-12 sm:grid-cols-12   xl:grid-cols-12 gap-4">
+          <div className="md:col-span-5 lg:col-span-5 sm:col-span-12">
+            <label htmlFor="passport_series">
+              серия паспорта:<span className="text-red-600 font-extrabold"> *</span>{" "}
+            </label>
+            <input
+              disabled={formik.values.type == "жисмоний шахс" ? false : true}
+              type="text"
+              className="w-full h-9 rounded border-2 focus:border-blue-500 border-gray-300 px-4 focus:outline-none"
+              name="passport_series"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              value={formik.values.passport_series}
+            />
+            {formik.touched.passport_series && formik.errors.passport_series && formik.values.type == "жисмоний шахс" ? (
+              <div className="text-red-900 font-bold">
+                {formik.errors.passport_series}
+              </div>
+            ) : null}
+          </div>
+
+          <div className="md:col-span-7 lg:col-span-7 sm:col-span-12">
+            <label htmlFor="passport_number">
+              номер паспорта:<span className="text-red-600 font-extrabold"> *</span>{" "}
+            </label>
+            <input
+              type="text"
+              disabled={formik.values.type == "жисмоний шахс" ? false : true}
+              className="w-full h-9 rounded border-2 focus:border-blue-500 border-gray-300 px-4 focus:outline-none"
+              name="passport_number"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              value={formik.values.passport_number}
+            />
+            {formik.touched.passport_number && formik.errors.passport_number && formik.values.type == "жисмоний шахс" ? (
+              <div className="text-red-900 font-bold">{formik.errors.passport_number}</div>
+            ) : null}
+          </div>
         </div>
 
         <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12">
