@@ -116,18 +116,15 @@ const BasicWithHTML = (props) => {
         const obl = []
         const ray = []
 
-        await axios.post("/api/Location/provinces", {
-          obl: res.data.data.ns10_code
-        }).then(response => { obl.push(response.data[0]) })
+        if (res.data.success !== false) {
+          await axios.post("/api/Location/provinces", {
+            obl: res.data.data.ns10_code
+          }).then(response => { obl.push(response.data[0]) })
 
-        await axios.post("/api/Location/destrict", {
-          ray: res.data.data.ns10_code
-        }).then(response => { ray.push(response.data[0]) })
+          await axios.post("/api/Location/destrict", {
+            ray: res.data.data.ns10_code
+          }).then(response => { ray.push(response.data[0]) })
 
-
-        if (res.data.success === false) {
-          alert("Ushbu INN Buyicha Malumot Topilmadi")
-        } else {
           const NewData = {
             operator: formik.values.operator,
             fio: formik.values.fio,
@@ -147,6 +144,9 @@ const BasicWithHTML = (props) => {
             comment: formik.values.comment,
           }
           formik.setValues(NewData)
+
+        } else {
+          alert("Ushbu INN Buyicha Malumot Topilmadi")
         }
       })
     }
