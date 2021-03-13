@@ -1,7 +1,6 @@
 import "yup-phone";
 import * as Yup from "yup";
 
-
 export const validateForm = () => {
   return Yup.object({
     operator: Yup.string()
@@ -27,12 +26,9 @@ export const validateForm = () => {
       .min(3, "Слишком коротко!")
       .max(50, "Слишком Долго!")
       .required("Обязательное поле"),
-    passport_series: Yup.string()
-      .length(2)
-      .uppercase(),
-    passport_number: Yup.string()
-      .length(7),
-      
+    passport_series: Yup.string().length(2).uppercase(),
+    passport_number: Yup.string().length(7),
+
     author: Yup.string()
       .min(3, "Слишком коротко!")
       .max(100, "Слишком Долго!")
@@ -49,11 +45,7 @@ export const validateForm = () => {
       .min(3, "Слишком коротко!")
       .max(50, "Слишком Долго!")
       .required("Обязательное поле"),
-    phone: Yup.string()
-      .phone("UZ")
-      .required(
-        "Телефон должен быть действующим номером телефона для региона Узбекистан"
-      ),
+    phone: Yup.string().required("Обязательное поле"),
     email: Yup.string()
       .email("Неверный адрес электронной почты")
       .required("Обязательное поле"),
@@ -63,7 +55,7 @@ export const validateForm = () => {
     reviewResult: Yup.string().required("Обязательное поле!"),
     comment: Yup.string().min(100).max(1024).required("Обязательное поле!"),
   });
-}
+};
 
 export const validateReg = () => {
   return Yup.object({
@@ -71,5 +63,5 @@ export const validateReg = () => {
     operator: Yup.string().required(),
     password: Yup.string().min(6).required(),
     confirm_password: Yup.string().min(6).required(),
-  })
-}
+  });
+};

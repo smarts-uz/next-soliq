@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import Select from "react-select";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { validateForm } from '../../unlits/validate-form'
+import { validateForm } from "../../unlits/validate-form";
 import { data } from "autoprefixer";
 
 const BasicWithHTML = (props) => {
@@ -73,7 +73,10 @@ const BasicWithHTML = (props) => {
 
     onSubmit: async (values) => {
       await axios
-        .post(`/api/Datas/${props.data ? "put" : "create"}`, props.data ? { id: props.data.id, value: values } : values)
+        .post(
+          `/api/Datas/${props.data ? "put" : "create"}`,
+          props.data ? { id: props.data.id, value: values } : values
+        )
         .then((res) => {
           router.push("/");
         })
@@ -101,54 +104,67 @@ const BasicWithHTML = (props) => {
       reviewResult: props.data ? props.data.reviewResult : "",
       comment: props.data ? props.data.comment : "",
     };
-    formik.setValues(data)
+    formik.setValues(data);
   }, [props.data]);
-
 
   const router = useRouter();
 
   const handleStirChange = async (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       e.preventDefault();
-      await axios.post(`/api/Person/${formik.values.type === types[0].value ? 'fiz' : 'yur'}`, {
-        inn: formik.values.inn,
-      }).then(async (res) => {
-        const obl = []
-        const ray = []
-
-        await axios.post("/api/Location/provinces", {
-          obl: res.data.data.ns10_code
-        }).then(response => { obl.push(response.data[0]) })
-
-        await axios.post("/api/Location/destrict", {
-          ray: res.data.data.ns10_code
-        }).then(response => { ray.push(response.data[0]) })
-
-
-        if (res.data.success === false) {
-          alert("Ushbu INN Buyicha Malumot Topilmadi")
-        } else {
-          const NewData = {
-            operator: formik.values.operator,
-            fio: formik.values.fio,
-            referenceContent: formik.values.referenceContent,
+      await axios
+        .post(
+          `/api/Person/${
+            formik.values.type === types[0].value ? "fiz" : "yur"
+          }`,
+          {
             inn: formik.values.inn,
-            type: formik.values.type,
-            author: res.data.data.company_name,
-            province: obl[0].name_uz,
-            destrict: ray[0].name_uz,
-            address: res.data.data.adress,
-            phone: formik.values.phone,
-            email: formik.values.email,
-            category: formik.values.category,
-            underCategory: formik.values.underCategory,
-            theme: formik.values.theme,
-            reviewResult: formik.values.reviewResult,
-            comment: formik.values.comment,
           }
-          formik.setValues(NewData)
-        }
-      })
+        )
+        .then(async (res) => {
+          const obl = [];
+          const ray = [];
+
+          await axios
+            .post("/api/Location/provinces", {
+              obl: res.data.data.ns10_code,
+            })
+            .then((response) => {
+              obl.push(response.data[0]);
+            });
+
+          await axios
+            .post("/api/Location/destrict", {
+              ray: res.data.data.ns10_code,
+            })
+            .then((response) => {
+              ray.push(response.data[0]);
+            });
+
+          if (res.data.success === false) {
+            alert("Ushbu INN Buyicha Malumot Topilmadi");
+          } else {
+            const NewData = {
+              operator: formik.values.operator,
+              fio: formik.values.fio,
+              referenceContent: formik.values.referenceContent,
+              inn: formik.values.inn,
+              type: formik.values.type,
+              author: res.data.data.company_name,
+              province: obl[0].name_uz,
+              destrict: ray[0].name_uz,
+              address: res.data.data.adress,
+              phone: formik.values.phone,
+              email: formik.values.email,
+              category: formik.values.category,
+              underCategory: formik.values.underCategory,
+              theme: formik.values.theme,
+              reviewResult: formik.values.reviewResult,
+              comment: formik.values.comment,
+            };
+            formik.setValues(NewData);
+          }
+        });
     }
     // else if (e.key === 'Enter' && formik.values.type === types[0].value) {
     //   e.preventDefault();
@@ -167,7 +183,6 @@ const BasicWithHTML = (props) => {
     //     await axios.post("/api/Location/destrict", {
     //       ray: res.data.data.ns10_code
     //     }).then(response => { ray.push(response.data[0]) })
-
 
     //     if (res.data.success === false) {
     //       alert("Ushbu INN Buyicha Malumot Topilmadi")
@@ -194,9 +209,7 @@ const BasicWithHTML = (props) => {
     //     }
     //   })
     // }
-
-
-  }
+  };
 
   return (
     <div className="w-full bg-white">
@@ -204,11 +217,16 @@ const BasicWithHTML = (props) => {
         onSubmit={formik.handleSubmit}
         className="grid gap-4 md:grid-cols-12 sm:grid-cols-12 xl:grid-cols-12"
       >
-        <div className="md:col-span-12 bg-blue-500 py-5 px-6 lg:col-span-12 sm:col-span-12 grid md:grid-cols-12 sm:grid-cols-12   xl:grid-cols-12 gap-4">
-          <div className="md:col-span-6 lg:col-span-6 sm:col-span-12">
+        <div className="md:col-span-12 py-5 px-6 lg:col-span-12 sm:col-span-12 grid md:grid-cols-12 sm:grid-cols-12   xl:grid-cols-12 gap-4">
+          <div className="md:col-span-6 lg:col-span-6 sm:col-span-12 relative">
             <label htmlFor="operator">
               Оператор:<span className="text-red-600 font-extrabold"> *</span>{" "}
             </label>
+            {formik.touched.operator && formik.errors.operator ? (
+              <div className="text-red-900 font-bold inline-block absolute right-0">
+                {formik.errors.operator}
+              </div>
+            ) : null}
             <input
               type="text"
               className="w-full h-9 rounded border-2 focus:border-blue-500 border-gray-300 px-4 focus:outline-none"
@@ -217,17 +235,17 @@ const BasicWithHTML = (props) => {
               onChange={formik.handleChange}
               value={formik.values.operator}
             />
-            {formik.touched.operator && formik.errors.operator ? (
-              <div className="text-red-900 font-bold">
-                {formik.errors.operator}
-              </div>
-            ) : null}
           </div>
 
-          <div className="md:col-span-6 lg:col-span-6 sm:col-span-12">
+          <div className="md:col-span-6 lg:col-span-6 sm:col-span-12 relative">
             <label htmlFor="fio">
               Ф.И.О:<span className="text-red-600 font-extrabold"> *</span>{" "}
             </label>
+            {formik.touched.fio && formik.errors.fio ? (
+              <div className="text-red-900 font-bold inline-block absolute right-0">
+                {formik.errors.fio}
+              </div>
+            ) : null}
             <input
               type="text"
               className="w-full h-9 rounded border-2 focus:border-blue-500 border-gray-300 px-4 focus:outline-none"
@@ -236,17 +254,19 @@ const BasicWithHTML = (props) => {
               onChange={formik.handleChange}
               value={formik.values.fio}
             />
-            {formik.touched.fio && formik.errors.fio ? (
-              <div className="text-red-900 font-bold">{formik.errors.fio}</div>
-            ) : null}
           </div>
         </div>
 
-        <div className="px-6 md:col-span-12 lg:col-span-12 sm:col-span-12">
+        <div className="px-6 md:col-span-12 lg:col-span-12 sm:col-span-12 relative">
           <label htmlFor="referenceContent">
             Содержание обращения:
             <span className="text-red-600 font-extrabold"> *</span>{" "}
           </label>
+          {formik.touched.referenceContent && formik.errors.referenceContent ? (
+            <div className="text-red-900 font-bold inline-block absolute right-6">
+              {formik.errors.referenceContent}
+            </div>
+          ) : null}
           <textarea
             rows={4}
             className="w-full  rounded border-2 focus:border-blue-500 border-gray-300 px-4 py-2 focus:outline-none"
@@ -255,22 +275,22 @@ const BasicWithHTML = (props) => {
             onChange={formik.handleChange}
             value={formik.values.referenceContent}
           />
-          {formik.touched.referenceContent && formik.errors.referenceContent ? (
-            <div className="text-red-900 font-bold">
-              {formik.errors.referenceContent}
-            </div>
-          ) : null}
         </div>
 
-        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12">
+        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12 relative">
           <label htmlFor="type">
             Типы:<span className="text-red-600 font-extrabold"> *</span>{" "}
           </label>
+          {formik.touched.type && formik.errors.type ? (
+            <div className="text-red-900 font-bold inline-block absolute right-6">
+              {formik.errors.type}
+            </div>
+          ) : null}
           <Select
             id="type"
             name="type"
             options={types}
-            value={types.filter(opt => opt.label === formik.values.type)}
+            value={types.filter((opt) => opt.label === formik.values.type)}
             onBlur={() => {
               formik.setFieldTouched("type", true);
             }}
@@ -278,15 +298,17 @@ const BasicWithHTML = (props) => {
               formik.setFieldValue("type", opt.value);
             }}
           />
-          {formik.touched.type && formik.errors.type ? (
-            <div className="text-red-900 font-bold">{formik.errors.type}</div>
-          ) : null}
         </div>
 
-        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12">
+        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12 relative">
           <label htmlFor="inn">
             STIR:<span className="text-red-600 font-extrabold"> *</span>{" "}
           </label>
+          {formik.touched.inn && formik.errors.inn ? (
+            <div className="text-red-900 font-bold inline-block absolute right-6">
+              {formik.errors.inn}
+            </div>
+          ) : null}
           <input
             type="number"
             min={0}
@@ -297,16 +319,18 @@ const BasicWithHTML = (props) => {
             value={formik.values.inn}
             onKeyPress={handleStirChange}
           />
-          {formik.touched.inn && formik.errors.inn ? (
-            <div className="text-red-900 font-bold">{formik.errors.inn}</div>
-          ) : null}
         </div>
 
-        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12">
+        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12 relative">
           <label htmlFor="author">
             Автор обращения:
             <span className="text-red-600 font-extrabold"> *</span>{" "}
           </label>
+          {formik.touched.author && formik.errors.author ? (
+            <div className="text-red-900 font-bold inline-block absolute right-6">
+              {formik.errors.author}
+            </div>
+          ) : null}
 
           <input
             type="text"
@@ -316,16 +340,17 @@ const BasicWithHTML = (props) => {
             onChange={formik.handleChange}
             value={formik.values.author}
           />
-
-          {formik.touched.author && formik.errors.author ? (
-            <div className="text-red-900 font-bold">{formik.errors.author}</div>
-          ) : null}
         </div>
 
-        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12">
+        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12 relative">
           <label htmlFor="province">
             Область:<span className="text-red-600 font-extrabold"> *</span>{" "}
           </label>
+          {formik.touched.province && formik.errors.province ? (
+            <div className="text-red-900 font-bold inline-block absolute right-6">
+              {formik.errors.province}
+            </div>
+          ) : null}
           <input
             type="text"
             className="w-full h-9 rounded border-2 focus:border-blue-500 border-gray-300 px-4 focus:outline-none"
@@ -334,18 +359,17 @@ const BasicWithHTML = (props) => {
             onChange={formik.handleChange}
             value={formik.values.province}
           />
-
-          {formik.touched.province && formik.errors.province ? (
-            <div className="text-red-900 font-bold">
-              {formik.errors.province}
-            </div>
-          ) : null}
         </div>
 
-        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12">
+        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12 relative">
           <label htmlFor="destrict">
             Район/город:<span className="text-red-600 font-extrabold"> *</span>{" "}
           </label>
+          {formik.touched.destrict && formik.errors.destrict ? (
+            <div className="text-red-900 font-bold inline-block  absolute right-6">
+              {formik.errors.destrict}
+            </div>
+          ) : null}
           <input
             type="text"
             className="w-full h-9 rounded border-2 focus:border-blue-500 border-gray-300 px-4 focus:outline-none"
@@ -354,17 +378,17 @@ const BasicWithHTML = (props) => {
             onChange={formik.handleChange}
             value={formik.values.destrict}
           />
-          {formik.touched.destrict && formik.errors.destrict ? (
-            <div className="text-red-900 font-bold">
-              {formik.errors.destrict}
-            </div>
-          ) : null}
         </div>
 
-        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12">
+        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12 relative">
           <label htmlFor="address">
             Адрес:<span className="text-red-600 font-extrabold"> *</span>{" "}
           </label>
+          {formik.touched.address && formik.errors.address ? (
+            <div className="text-red-900 font-bold inline-block  absolute right-6">
+              {formik.errors.address}
+            </div>
+          ) : null}
           <input
             type="text"
             className="w-full h-9 rounded border-2 focus:border-blue-500 border-gray-300 px-4 focus:outline-none"
@@ -373,22 +397,24 @@ const BasicWithHTML = (props) => {
             onBlur={formik.handleBlur}
             value={formik.values.address}
           />
-          {formik.touched.address && formik.errors.address ? (
-            <div className="text-red-900 font-bold">
-              {formik.errors.address}
-            </div>
-          ) : null}
         </div>
 
-        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12">
+        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12 relative">
           <label htmlFor="category">
             Категория:<span className="text-red-600 font-extrabold"> *</span>{" "}
           </label>
+          {formik.touched.category && formik.errors.category ? (
+            <div className="text-red-900 font-bold inline-block  absolute right-6">
+              {formik.errors.category}
+            </div>
+          ) : null}
           <Select
             id="category"
             name="category"
             options={categories}
-            value={categories.filter(opt => opt.label === formik.values.category)}
+            value={categories.filter(
+              (opt) => opt.label === formik.values.category
+            )}
             onBlur={() => {
               formik.setFieldTouched("category", true);
             }}
@@ -397,18 +423,18 @@ const BasicWithHTML = (props) => {
               formik.setFieldValue("category", opt.value);
             }}
           />
-          {formik.touched.category && formik.errors.category ? (
-            <div className="text-red-900 font-bold">
-              {formik.errors.category}
-            </div>
-          ) : null}
         </div>
 
-        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12">
+        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12 relative">
           <label htmlFor="underCategory">
             Под категория:
             <span className="text-red-600 font-extrabold"> *</span>{" "}
           </label>
+          {formik.touched.underCategory && formik.errors.underCategory ? (
+            <div className="text-red-900 font-bold inline-block  absolute right-6">
+              {formik.errors.underCategory}
+            </div>
+          ) : null}
           <Select
             id="underCategory"
             name="underCategory"
@@ -423,7 +449,9 @@ const BasicWithHTML = (props) => {
                 ? underCategories
                 : [{ value: " ", label: " " }]
             }
-            value={underCategories.filter(opt => opt.label === formik.values.underCategory)}
+            value={underCategories.filter(
+              (opt) => opt.label === formik.values.underCategory
+            )}
             onBlur={() => {
               formik.setFieldTouched("underCategory", true);
             }}
@@ -432,24 +460,24 @@ const BasicWithHTML = (props) => {
               formik.setFieldValue("underCategory", opt.value);
             }}
           />
-          {formik.touched.underCategory && formik.errors.underCategory ? (
-            <div className="text-red-900 font-bold">
-              {formik.errors.underCategory}
-            </div>
-          ) : null}
         </div>
 
-        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12">
+        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12 relative">
           <label htmlFor="theme">
             Тема:<span className="text-red-600 font-extrabold"> *</span>{" "}
           </label>
+          {formik.touched.theme && formik.errors.theme ? (
+            <div className="text-red-900 font-bold inline-block  absolute right-6">
+              {formik.errors.theme}
+            </div>
+          ) : null}
           <Select
             id="theme"
             name="theme"
             options={
               formik.values.underCategory ? themes : [{ value: "", label: "" }]
             }
-            value={themes.filter(opt => opt.label === formik.values.theme)}
+            value={themes.filter((opt) => opt.label === formik.values.theme)}
             onFocus={() => {
               if (!formik.values.underCategory) {
                 alert("Iltimos kategoriya ostini tanlang!!!");
@@ -463,14 +491,16 @@ const BasicWithHTML = (props) => {
               formik.setFieldValue("theme", opt.value);
             }}
           />
-          {formik.touched.theme && formik.errors.theme ? (
-            <div className="text-red-900 font-bold">{formik.errors.theme}</div>
-          ) : null}
         </div>
-        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12">
+        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12 relative">
           <label htmlFor="phone">
             Телефон:<span className="text-red-600 font-extrabold"> *</span>{" "}
           </label>
+          {formik.touched.phone && formik.errors.phone ? (
+            <div className="text-red-900 font-bold inline-block  absolute right-6">
+              {formik.errors.phone}
+            </div>
+          ) : null}
           <input
             type="tel"
             className="w-full h-9 rounded border-2 focus:border-blue-500 border-gray-300 px-4 focus:outline-none"
@@ -479,15 +509,17 @@ const BasicWithHTML = (props) => {
             onChange={formik.handleChange}
             value={formik.values.phone}
           />
-          {formik.touched.phone && formik.errors.phone ? (
-            <div className="text-red-900 font-bold">{formik.errors.phone}</div>
-          ) : null}
         </div>
 
-        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12">
+        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12 relative">
           <label htmlFor="email">
             email:<span className="text-red-600 font-extrabold"> *</span>{" "}
           </label>
+          {formik.touched.email && formik.errors.email ? (
+            <div className="text-red-900 font-bold inline-block  absolute right-6">
+              {formik.errors.email}
+            </div>
+          ) : null}
           <input
             type="email"
             className="w-full h-9 rounded border-2 focus:border-blue-500 border-gray-300 px-4 focus:outline-none"
@@ -496,17 +528,19 @@ const BasicWithHTML = (props) => {
             onChange={formik.handleChange}
             value={formik.values.email}
           />
-          {formik.touched.email && formik.errors.email ? (
-            <div className="text-red-900 font-bold">{formik.errors.email}</div>
-          ) : null}
         </div>
 
         <hr className="col-span-12 hidden lg:block  xl:block 2xl:block lg:block" />
-        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12">
+        <div className="px-6 md:col-span-6 lg:col-span-5 sm:col-span-12 relative">
           <label htmlFor="reviewResult">
             Результат рассмотрения:
             <span className="text-red-600 font-extrabold"> *</span>{" "}
           </label>
+          {formik.touched.reviewResult && formik.errors.reviewResult ? (
+            <div className="text-red-900 font-bold inline-block  absolute right-6">
+              {formik.errors.reviewResult}
+            </div>
+          ) : null}
           <input
             type="text"
             className="w-full h-9 rounded border-2 focus:border-blue-500 border-gray-300 px-4 focus:outline-none"
@@ -515,17 +549,17 @@ const BasicWithHTML = (props) => {
             onBlur={formik.handleBlur}
             value={formik.values.reviewResult}
           />
-          {formik.touched.reviewResult && formik.errors.reviewResult ? (
-            <div className="text-red-900 font-bold">
-              {formik.errors.reviewResult}
-            </div>
-          ) : null}
         </div>
 
-        <div className="px-6 md:col-span-12 lg:col-span-8 sm:col-span-12">
+        <div className="px-6 md:col-span-12 lg:col-span-7 sm:col-span-12 relative">
           <label htmlFor="comment">
             Примечание: <span className="text-red-600 font-extrabold"> *</span>
           </label>
+          {formik.touched.comment && formik.errors.comment ? (
+            <div className="text-red-900 font-bold inline-block  absolute right-6">
+              {formik.errors.comment}
+            </div>
+          ) : null}
           <input
             type="text"
             className="w-full h-9 rounded border-2 focus:border-blue-500 border-gray-300 px-4 focus:outline-none"
@@ -534,11 +568,6 @@ const BasicWithHTML = (props) => {
             onChange={formik.handleChange}
             value={formik.values.comment}
           />
-          {formik.touched.comment && formik.errors.comment ? (
-            <div className="text-red-900 font-bold">
-              {formik.errors.comment}
-            </div>
-          ) : null}
         </div>
 
         <div className="flex justify-around space-x-4 text-center sm:col-start-7 sm:col-end-13     md:col-span-4 md:col-start-9 xl:col-span-2 xl:col-start-6">
