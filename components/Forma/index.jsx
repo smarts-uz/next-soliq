@@ -217,8 +217,8 @@ const BasicWithHTML = (props) => {
         onSubmit={formik.handleSubmit}
         className="grid gap-4 md:grid-cols-12 sm:grid-cols-12 xl:grid-cols-12"
       >
-        <div className="md:col-span-12 py-5 px-6 lg:col-span-12 sm:col-span-12 grid md:grid-cols-12 sm:grid-cols-12   xl:grid-cols-12 gap-4">
-          <div className="md:col-span-6 lg:col-span-6 sm:col-span-12 relative">
+        <div className="md:col-span-12 py-5 px-6 lg:col-span-12 sm:col-span-12 grid md:grid-cols-12 sm:grid-cols-12 xl:grid-cols-12 gap-4">
+          <div className="md:col-span-12 xl:col-span-6 sm:col-span-12 relative">
             <label htmlFor="operator">
               Оператор:<span className="text-red-600 font-extrabold"> *</span>{" "}
             </label>
@@ -237,7 +237,7 @@ const BasicWithHTML = (props) => {
             />
           </div>
 
-          <div className="md:col-span-6 lg:col-span-6 sm:col-span-12 relative">
+          <div className="md:col-span-12 xl:col-span-6 sm:col-span-12 relative">
             <label htmlFor="fio">
               Ф.И.О:<span className="text-red-600 font-extrabold"> *</span>{" "}
             </label>
@@ -277,7 +277,7 @@ const BasicWithHTML = (props) => {
           />
         </div>
 
-        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12 relative">
+        <div className="px-6 lg:col-span-6 xl:col-span-4 sm:col-span-12 relative">
           <label htmlFor="type">
             Типы:<span className="text-red-600 font-extrabold"> *</span>{" "}
           </label>
@@ -300,7 +300,7 @@ const BasicWithHTML = (props) => {
           />
         </div>
 
-        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12 relative">
+        <div className="px-6 lg:col-span-6 xl:col-span-4 sm:col-span-12 relative">
           <label htmlFor="inn">
             STIR:<span className="text-red-600 font-extrabold"> *</span>{" "}
           </label>
@@ -321,7 +321,7 @@ const BasicWithHTML = (props) => {
           />
         </div>
 
-        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12 relative">
+        <div className="px-6 lg:col-span-6 xl:col-span-4 sm:col-span-12 relative">
           <label htmlFor="author">
             Автор обращения:
             <span className="text-red-600 font-extrabold"> *</span>{" "}
@@ -342,7 +342,7 @@ const BasicWithHTML = (props) => {
           />
         </div>
 
-        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12 relative">
+        <div className="px-6 lg:col-span-6 xl:col-span-4 sm:col-span-12 relative">
           <label htmlFor="province">
             Область:<span className="text-red-600 font-extrabold"> *</span>{" "}
           </label>
@@ -361,7 +361,7 @@ const BasicWithHTML = (props) => {
           />
         </div>
 
-        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12 relative">
+        <div className="px-6 lg:col-span-6 xl:col-span-4 sm:col-span-12 relative">
           <label htmlFor="destrict">
             Район/город:<span className="text-red-600 font-extrabold"> *</span>{" "}
           </label>
@@ -380,7 +380,7 @@ const BasicWithHTML = (props) => {
           />
         </div>
 
-        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12 relative">
+        <div className="px-6 lg:col-span-6 xl:col-span-4 sm:col-span-12 relative">
           <label htmlFor="address">
             Адрес:<span className="text-red-600 font-extrabold"> *</span>{" "}
           </label>
@@ -399,7 +399,7 @@ const BasicWithHTML = (props) => {
           />
         </div>
 
-        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12 relative">
+        <div className="px-6 lg:col-span-6 xl:col-span-4 sm:col-span-12 relative">
           <label htmlFor="category">
             Категория:<span className="text-red-600 font-extrabold"> *</span>{" "}
           </label>
@@ -425,7 +425,7 @@ const BasicWithHTML = (props) => {
           />
         </div>
 
-        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12 relative">
+        <div className="px-6 lg:col-span-6 xl:col-span-4 sm:col-span-12 relative">
           <label htmlFor="underCategory">
             Под категория:
             <span className="text-red-600 font-extrabold"> *</span>{" "}
@@ -462,7 +462,7 @@ const BasicWithHTML = (props) => {
           />
         </div>
 
-        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12 relative">
+        <div className="px-6 lg:col-span-6 xl:col-span-4 sm:col-span-12 relative">
           <label htmlFor="theme">
             Тема:<span className="text-red-600 font-extrabold"> *</span>{" "}
           </label>
@@ -492,7 +492,8 @@ const BasicWithHTML = (props) => {
             }}
           />
         </div>
-        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12 relative">
+
+        <div className="px-6 lg:col-span-6 xl:col-span-4 sm:col-span-12 relative">
           <label htmlFor="phone">
             Телефон:<span className="text-red-600 font-extrabold"> *</span>{" "}
           </label>
@@ -511,7 +512,7 @@ const BasicWithHTML = (props) => {
           />
         </div>
 
-        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12 relative">
+        <div className="px-6 lg:col-span-6 xl:col-span-4 sm:col-span-12 relative">
           <label htmlFor="email">
             email:<span className="text-red-600 font-extrabold"> *</span>{" "}
           </label>
@@ -531,7 +532,7 @@ const BasicWithHTML = (props) => {
         </div>
 
         <hr className="col-span-12 hidden lg:block  xl:block 2xl:block lg:block" />
-        <div className="px-6 md:col-span-6 lg:col-span-5 sm:col-span-12 relative">
+        <div className="px-6 md:col-span-12 xl:col-span-5 sm:col-span-12 relative">
           <label htmlFor="reviewResult">
             Результат рассмотрения:
             <span className="text-red-600 font-extrabold"> *</span>{" "}
@@ -551,7 +552,7 @@ const BasicWithHTML = (props) => {
           />
         </div>
 
-        <div className="px-6 md:col-span-12 lg:col-span-7 sm:col-span-12 relative">
+        <div className="px-6 md:col-span-12 xl:col-span-7 sm:col-span-12 relative">
           <label htmlFor="comment">
             Примечание: <span className="text-red-600 font-extrabold"> *</span>
           </label>
