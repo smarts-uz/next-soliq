@@ -6,9 +6,9 @@ export default async (req, res) => {
     headers.set('Authorization', 'Basic ' + 'dGVzdDoxMjM0NTY3ODk=');
     await axios.post('https://ws.soliqservis.uz/gnk/data/fiznp1', {
         tin: req.body.inn,
-        pinfl :"",
-        series_passport: req.body.PS,
-        number_passport: req.body.PN,
+        pinfl :" ",
+        series_passport: " ",
+        number_passport: " ",
         lang: "uz"
     }, {
         auth: {

@@ -33,8 +33,6 @@ model PhysicalPerson {
   tin             String
   company_name    String
   adress          String
-  series_passport String
-  number_passport Int
   org_passport    String
   issued_passport String
   pinfl           String

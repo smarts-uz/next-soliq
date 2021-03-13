@@ -56,8 +56,6 @@ const BasicWithHTML = (props) => {
       referenceContent: props.data ? props.data.referenceContent : "",
       inn: props.data ? props.data.inn : "",
       type: props.data ? props.data.type : "",
-      passport_series: props.data ? props.data.passport_series : "",
-      passport_number: props.data ? props.data.passport_number : "",
       author: props.data ? props.data.author : "",
       province: props.data ? props.data.province : "",
       destrict: props.data ? props.data.destrict : "",
@@ -91,8 +89,6 @@ const BasicWithHTML = (props) => {
       referenceContent: props.data ? props.data.referenceContent : "",
       inn: props.data ? props.data.inn : "",
       type: props.data ? props.data.type : "",
-      passport_series: props.data ? props.data.passport_series : "",
-      passport_number: props.data ? props.data.passport_number : "",
       author: props.data ? props.data.author : "",
       province: props.data ? props.data.province : "",
       destrict: props.data ? props.data.destrict : "",
@@ -109,13 +105,12 @@ const BasicWithHTML = (props) => {
   }, [props.data]);
 
 
-
   const router = useRouter();
 
   const handleStirChange = async (e) => {
-    if (e.key === 'Enter' && formik.values.type === types[1].value) {
+    if (e.key === 'Enter') {
       e.preventDefault();
-      await axios.post('/api/Person/yur', {
+      await axios.post(`/api/Person/${formik.values.type === types[0].value ? 'fiz' : 'yur'}`, {
         inn: formik.values.inn,
       }).then(async (res) => {
         const obl = []
@@ -139,55 +134,6 @@ const BasicWithHTML = (props) => {
             referenceContent: formik.values.referenceContent,
             inn: formik.values.inn,
             type: formik.values.type,
-            passport_series: formik.values.passport_series,
-            passport_number: formik.values.passport_number,
-            author: res.data.data.company_name,
-            province: obl[0].name_uz,
-            destrict: ray[0].name_uz,
-            address: res.data.data.adress,
-            phone: formik.values.phone,
-            email: formik.values.email,
-            category: formik.values.category,
-            underCategory: formik.values.underCategory,
-            theme: formik.values.theme,
-            reviewResult: formik.values.reviewResult,
-            comment: formik.values.comment,
-          }
-          formik.setValues(NewData)
-        }
-      })
-    } else if (e.key === 'Enter' && formik.values.type === types[0].value) {
-      e.preventDefault();
-      await axios.post('/api/Person/fiz', {
-        inn: formik.values.inn,
-        PS: formik.values.passport_series,
-        PN: formik.values.passport_number
-      }).then(async (res) => {
-        const obl = []
-        const ray = []
-
-        console.log(ray)
-
-        await axios.post("/api/Location/provinces", {
-          obl: res.data.data.ns10_code
-        }).then(response => { obl.push(response.data[0]) })
-
-        await axios.post("/api/Location/destrict", {
-          ray: res.data.data.ns10_code
-        }).then(response => { ray.push(response.data[0]) })
-
-
-        if (res.data.success === false) {
-          alert("Ushbu INN Buyicha Malumot Topilmadi")
-        } else {
-          const NewData = {
-            operator: formik.values.operator,
-            fio: formik.values.fio,
-            referenceContent: formik.values.referenceContent,
-            inn: formik.values.inn,
-            type: formik.values.type,
-            passport_series: formik.values.passport_series,
-            passport_number: formik.values.passport_number,
             author: res.data.data.company_name,
             province: obl[0].name_uz,
             destrict: ray[0].name_uz,
@@ -204,6 +150,50 @@ const BasicWithHTML = (props) => {
         }
       })
     }
+    // else if (e.key === 'Enter' && formik.values.type === types[0].value) {
+    //   e.preventDefault();
+    //   await axios.post('/api/Person/fiz', {
+    //     inn: formik.values.inn,
+    //   }).then(async (res) => {
+    //     const obl = []
+    //     const ray = []
+
+    //     console.log(ray)
+
+    //     await axios.post("/api/Location/provinces", {
+    //       obl: res.data.data.ns10_code
+    //     }).then(response => { obl.push(response.data[0]) })
+
+    //     await axios.post("/api/Location/destrict", {
+    //       ray: res.data.data.ns10_code
+    //     }).then(response => { ray.push(response.data[0]) })
+
+
+    //     if (res.data.success === false) {
+    //       alert("Ushbu INN Buyicha Malumot Topilmadi")
+    //     } else {
+    //       const NewData = {
+    //         operator: formik.values.operator,
+    //         fio: formik.values.fio,
+    //         referenceContent: formik.values.referenceContent,
+    //         inn: formik.values.inn,
+    //         type: formik.values.type,
+    //         author: res.data.data.company_name,
+    //         province: obl[0].name_uz,
+    //         destrict: ray[0].name_uz,
+    //         address: res.data.data.adress,
+    //         phone: formik.values.phone,
+    //         email: formik.values.email,
+    //         category: formik.values.category,
+    //         underCategory: formik.values.underCategory,
+    //         theme: formik.values.theme,
+    //         reviewResult: formik.values.reviewResult,
+    //         comment: formik.values.comment,
+    //       }
+    //       formik.setValues(NewData)
+    //     }
+    //   })
+    // }
 
 
   }
@@ -310,48 +300,6 @@ const BasicWithHTML = (props) => {
           {formik.touched.inn && formik.errors.inn ? (
             <div className="text-red-900 font-bold">{formik.errors.inn}</div>
           ) : null}
-        </div>
-
-        <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12 grid md:grid-cols-12 sm:grid-cols-12   xl:grid-cols-12 gap-4">
-          <div className="md:col-span-5 lg:col-span-5 sm:col-span-12">
-            <label htmlFor="passport_series">
-              серия паспорта:<span className="text-red-600 font-extrabold"> *</span>{" "}
-            </label>
-            <input
-              disabled={formik.values.type == "жисмоний шахс" ? false : true}
-              type="text"
-              className="w-full h-9 rounded border-2 focus:border-blue-500 border-gray-300 px-4 focus:outline-none"
-              name="passport_series"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              onKeyPress={handleStirChange}
-              value={formik.values.passport_series}
-            />
-            {formik.touched.passport_series && formik.errors.passport_series && formik.values.type == "жисмоний шахс" ? (
-              <div className="text-red-900 font-bold">
-                {formik.errors.passport_series}
-              </div>
-            ) : null}
-          </div>
-
-          <div className="md:col-span-7 lg:col-span-7 sm:col-span-12">
-            <label htmlFor="passport_number">
-              номер паспорта:<span className="text-red-600 font-extrabold"> *</span>{" "}
-            </label>
-            <input
-              type="text"
-              disabled={formik.values.type == "жисмоний шахс" ? false : true}
-              className="w-full h-9 rounded border-2 focus:border-blue-500 border-gray-300 px-4 focus:outline-none"
-              name="passport_number"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              onKeyPress={handleStirChange}
-              value={formik.values.passport_number}
-            />
-            {formik.touched.passport_number && formik.errors.passport_number && formik.values.type == "жисмоний шахс" ? (
-              <div className="text-red-900 font-bold">{formik.errors.passport_number}</div>
-            ) : null}
-          </div>
         </div>
 
         <div className="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12">
