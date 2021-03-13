@@ -212,7 +212,8 @@ const BasicWithHTML = (props) => {
   };
 
   return (
-    <div className="w-full bg-white">
+    <div className="w-full bg-white pt-32">
+      <h1 className="text-center font-bold text-5xl">Title of Form</h1>
       <form
         onSubmit={formik.handleSubmit}
         className="grid gap-4 md:grid-cols-12 sm:grid-cols-12 xl:grid-cols-12"
@@ -514,7 +515,8 @@ const BasicWithHTML = (props) => {
 
         <div className="px-6 lg:col-span-6 xl:col-span-4 sm:col-span-12 relative">
           <label htmlFor="email">
-            email:<span className="text-red-600 font-extrabold"> *</span>{" "}
+            Электронная почта:
+            <span className="text-red-600 font-extrabold"> *</span>{" "}
           </label>
           {formik.touched.email && formik.errors.email ? (
             <div className="text-red-900 font-bold inline-block  absolute right-6">
@@ -532,6 +534,7 @@ const BasicWithHTML = (props) => {
         </div>
 
         <hr className="col-span-12 hidden lg:block  xl:block 2xl:block lg:block" />
+
         <div className="px-6 md:col-span-12 xl:col-span-5 sm:col-span-12 relative">
           <label htmlFor="reviewResult">
             Результат рассмотрения:
