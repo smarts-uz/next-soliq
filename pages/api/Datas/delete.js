@@ -1,11 +1,12 @@
 import { PrismaClient } from "@prisma/client";
+import { authHandler } from "../../../untils/auth-middleware";
 
 const prisma  = new PrismaClient();
-export default async (req, res) => {
+export default authHandler(async (req, res) => {
 
     if(req.method === "POST" ){
         // return res.json({message: "messages"})
-        await prisma.datas.delete({
+        await prisma.next_Datas.delete({
             where: {
                 id: req.body.id
             } 
@@ -21,4 +22,4 @@ export default async (req, res) => {
     }
     
   }
-  
+  )

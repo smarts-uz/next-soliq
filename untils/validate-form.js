@@ -67,9 +67,7 @@ export const validateForm = () => {
 
 export const validateReg = () => {
   return Yup.object({
-    fullname: Yup.string().min(4).max(50).required(),
-    operator: Yup.string().required(),
-    password: Yup.string().min(6).required(),
-    confirm_password: Yup.string().min(6).required(),
+    username: Yup.string().required(),
+    password: Yup.string().min(5).required(),
   })
 }

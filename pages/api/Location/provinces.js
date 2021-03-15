@@ -1,13 +1,12 @@
 import { PrismaClient } from "@prisma/client";
+import { authHandler } from "../../../untils/auth-middleware";
 
 const prisma = new PrismaClient();
 
-export default (req, res) => {
+export default authHandler(async(req, res) => {
 
   if(req.method === "POST" ){
-        console.log(req.body);
-        // return res.json({message: "messages"})
-        prisma.provinces.findMany({
+        await prisma.next_Provinces.findMany({
             where:{
               row_obl: req.body.obl
             }
@@ -16,10 +15,6 @@ export default (req, res) => {
         }).catch(err=>{
             console.log(err);
         })
-        
-
     }
-       
-    
-  }
+  })
   

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Router } from "next/router";
 import { useState } from "react";
 import Forma from "../Forma";
 import Modal from "../Modal";
@@ -74,16 +75,15 @@ const datTable = (props) => {
                         <button onClick={() => {
                           setOneUser(user);
                           setShowUpdateModal(true)
-                        }} className="mx-1 w-6 focus:outline-none" type="button"><i class="far fa-edit"></i></button>
+                        }} className="mx-1 w-6 focus:outline-none" type="button"><i className="far fa-edit"></i></button>
                         <button className="mx-1 w-6 focus:outline-none" type="button"
                           onClick={async () => {
                             await axios.post('/api/Datas/delete', { id: user.id }).then(data => {
-                              window.location.reload()
-                              console.log("Deleted")
+                              Router.push("/")
                             }).catch(err => {
                               console.log(err);
                             })
-                          }} ><i class="fas fa-trash"></i></button>
+                          }} ><i className="fas fa-trash"></i></button>
                       </td>
                     </tr>
                   );

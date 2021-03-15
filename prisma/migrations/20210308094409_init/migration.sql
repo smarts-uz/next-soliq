@@ -11,13 +11,13 @@
 
 */
 -- DropForeignKey
-ALTER TABLE `theme` DROP FOREIGN KEY `theme_ibfk_1`;
+ALTER TABLE `next_theme` DROP FOREIGN KEY `theme_ibfk_1`;
 
 -- DropForeignKey
-ALTER TABLE `undercategory` DROP FOREIGN KEY `undercategory_ibfk_1`;
+ALTER TABLE `next_undercategory` DROP FOREIGN KEY `undercategory_ibfk_1`;
 
 -- CreateTable
-CREATE TABLE `Provinces` (
+CREATE TABLE `next_Provinces` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name_uz` VARCHAR(191) NOT NULL,
     `name_ru` VARCHAR(191) NOT NULL,
@@ -27,7 +27,7 @@ CREATE TABLE `Provinces` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `PhysicalPerson` (
+CREATE TABLE `next_PhysicalPerson` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `ns10_code` INTEGER NOT NULL,
     `ns11_code` INTEGER NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE `PhysicalPerson` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `LegalEntity` (
+CREATE TABLE `next_LegalEntity` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `ns10_code` INTEGER NOT NULL,
     `ns11_code` INTEGER NOT NULL,
@@ -62,7 +62,7 @@ CREATE TABLE `LegalEntity` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `Type` (
+CREATE TABLE `next_Type` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `uzbek` VARCHAR(191) NOT NULL,
     `russian` VARCHAR(191) NOT NULL,
@@ -71,7 +71,7 @@ CREATE TABLE `Type` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `Category` (
+CREATE TABLE `next_Category` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
 
@@ -79,7 +79,7 @@ CREATE TABLE `Category` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `UnderCategory` (
+CREATE TABLE `next_UnderCategory` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
     `categoryId` INTEGER NOT NULL,
@@ -88,7 +88,7 @@ CREATE TABLE `UnderCategory` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `Theme` (
+CREATE TABLE `next_Theme` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
     `underCategoryId` INTEGER NOT NULL,
@@ -97,7 +97,7 @@ CREATE TABLE `Theme` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `datas` (
+CREATE TABLE `next_Datas` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `operator` VARCHAR(191) NOT NULL,
     `fio` VARCHAR(191) NOT NULL,
@@ -122,28 +122,28 @@ CREATE TABLE `datas` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- DropTable
-DROP TABLE `category`;
+DROP TABLE `next_category`;
 
 -- DropTable
-DROP TABLE `legalentity`;
+DROP TABLE `next_legalentity`;
 
 -- DropTable
-DROP TABLE `physicalperson`;
+DROP TABLE `next_physicalperson`;
 
 -- DropTable
-DROP TABLE `provinces`;
+DROP TABLE `next_provinces`;
 
 -- DropTable
-DROP TABLE `theme`;
+DROP TABLE `next_theme`;
 
 -- DropTable
-DROP TABLE `type`;
+DROP TABLE `next_type`;
 
 -- DropTable
-DROP TABLE `undercategory`;
+DROP TABLE `next_undercategory`;
 
 -- AddForeignKey
-ALTER TABLE `UnderCategory` ADD FOREIGN KEY (`categoryId`) REFERENCES `Category`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `next_UnderCategory` ADD FOREIGN KEY (`categoryId`) REFERENCES `next_Category`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Theme` ADD FOREIGN KEY (`underCategoryId`) REFERENCES `UnderCategory`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `next_Theme` ADD FOREIGN KEY (`underCategoryId`) REFERENCES `next_UnderCategory`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;

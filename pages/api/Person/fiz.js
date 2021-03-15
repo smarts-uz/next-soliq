@@ -1,6 +1,7 @@
 import axios from "axios"
+import { authHandler } from "../../../untils/auth-middleware";
 
-export default async (req, res) => {
+export default authHandler(async (req, res) => {
 
     let headers = new Headers();
     headers.set('Authorization', 'Basic ' + 'dGVzdDoxMjM0NTY3ODk=');
@@ -22,4 +23,4 @@ export default async (req, res) => {
             console.log(err);
         })
 
-}
+})

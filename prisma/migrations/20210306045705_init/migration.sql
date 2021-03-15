@@ -1,5 +1,5 @@
 -- CreateTable
-CREATE TABLE `Provinces` (
+CREATE TABLE `next_Provinces` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name_uz` VARCHAR(191) NOT NULL,
     `name_ru` VARCHAR(191) NOT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE `Provinces` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `PhysicalPerson` (
+CREATE TABLE `next_PhysicalPerson` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `ns10_code` INTEGER NOT NULL,
     `ns11_code` INTEGER NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE `PhysicalPerson` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `LegalEntity` (
+CREATE TABLE `next_LegalEntity` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `ns10_code` INTEGER NOT NULL,
     `ns11_code` INTEGER NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE `LegalEntity` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `Type` (
+CREATE TABLE `next_Type` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `uzbek` VARCHAR(191) NOT NULL,
     `russian` VARCHAR(191) NOT NULL,
@@ -53,7 +53,7 @@ CREATE TABLE `Type` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `Category` (
+CREATE TABLE `next_Category` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
 
@@ -61,7 +61,7 @@ CREATE TABLE `Category` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `UnderCategory` (
+CREATE TABLE `next_UnderCategory` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
     `categoryId` INTEGER NOT NULL,
@@ -70,7 +70,7 @@ CREATE TABLE `UnderCategory` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `Theme` (
+CREATE TABLE `next_Theme` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
     `underCategoryId` INTEGER NOT NULL,
@@ -79,7 +79,7 @@ CREATE TABLE `Theme` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
-ALTER TABLE `UnderCategory` ADD FOREIGN KEY (`categoryId`) REFERENCES `Category`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `next_UnderCategory` ADD FOREIGN KEY (`categoryId`) REFERENCES `next_Category`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Theme` ADD FOREIGN KEY (`underCategoryId`) REFERENCES `UnderCategory`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `next_Theme` ADD FOREIGN KEY (`underCategoryId`) REFERENCES `next_UnderCategory`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;

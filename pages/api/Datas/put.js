@@ -1,13 +1,11 @@
 import { PrismaClient } from "@prisma/client";
+import { authHandler } from "../../../untils/auth-middleware";
 
 const prisma  = new PrismaClient();
-export default async (req, res) => {
-  console.log(req.body)
+export default authHandler(async (req, res) => {
     if(req.method === "POST" ){
-        // return res.json({message: "messages"})
 
-        console.log(req.body)
-        await prisma.datas.update({
+        await prisma.next_Datas.update({
             where: {
                 id: req.body.id
             },
@@ -23,4 +21,4 @@ export default async (req, res) => {
 
     }
   }
-  
+  )

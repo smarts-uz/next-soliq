@@ -1,11 +1,12 @@
 import { PrismaClient } from "@prisma/client";
+import { authHandler } from "../../../untils/auth-middleware";
 
 const prisma  = new PrismaClient();
-export default async (req, res) => {
+export default authHandler(async (req, res) => {
 
     if(req.method === "POST" ){
         let obj = {};
-        await prisma.datas.findMany({
+        await prisma.next_Datas.findMany({
             where: {
                 id: req.body.id
             }
@@ -19,7 +20,7 @@ export default async (req, res) => {
             res.status(500).json({message: err});
         }); 
         // return res.json({message: "messages"})
-        await prisma.category.findMany()
+        await prisma.next_Category.findMany()
         .then(result=>{
             obj = {
                 ...obj,
@@ -31,7 +32,7 @@ export default async (req, res) => {
         });
 
 
-        await prisma.underCategory.findMany()
+        await prisma.nderCategory.findMany()
         .then(result=>{
             obj = {
                 ...obj,
@@ -57,4 +58,4 @@ export default async (req, res) => {
     }
     
   }
-  
+  )

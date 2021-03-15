@@ -11,14 +11,14 @@ generator client {
   previewFeatures = ["createMany"]
 }
 
-model Provinces {
+model next_Provinces {
   id      Int    @id @default(autoincrement())
   name_uz String
   name_ru String
   row_obl Int
 }
 
-model Destricts {
+model next_Destricts {
   id      Int @id @default(autoincrement())
   name_uz String
   name_ru String
@@ -26,7 +26,7 @@ model Destricts {
   row_ray Int
 }
 
-model PhysicalPerson {
+model next_PhysicalPerson {
   id              Int    @id @default(autoincrement())
   ns10_code       Int
   ns11_code       Int
@@ -38,7 +38,7 @@ model PhysicalPerson {
   pinfl           String
 }
 
-model LegalEntity {
+model next_LegalEntity {
   id           Int    @id @default(autoincrement())
   ns10_code    Int
   ns11_code    Int
@@ -53,34 +53,34 @@ model LegalEntity {
   gb_name      String
 }
 
-model Type {
+model next_Type {
   id      Int    @id @default(autoincrement())
   uzbek   String
   russian String
 }
 
-model Category {
+model next_Category {
   id               Int             @id @default(autoincrement())
   name             String
-  unnderCategories UnderCategory[]
+  underCategories next_UnderCategory[]
 }
 
-model UnderCategory {
+model next_UnderCategory {
   id         Int      @id @default(autoincrement())
   name       String
-  author     Category @relation(fields: [categoryId], references: [id])
+  author     next_Category @relation(fields: [categoryId], references: [id])
   categoryId Int
-  themes     Theme[]
+  themes     next_Theme[]
 }
 
-model Theme {
+model next_Theme {
   id              Int           @id @default(autoincrement())
   name            String
-  underCategory   UnderCategory @relation(fields: [underCategoryId], references: [id])
+  underCategory   next_UnderCategory @relation(fields: [underCategoryId], references: [id])
   underCategoryId Int
 }
 
-model datas {
+model next_Datas {
   id               Int      @id @default(autoincrement())
   operator         String
   fio              String
@@ -89,8 +89,6 @@ model datas {
   referenceContent String
   inn              Int      @unique
   type             String
-  passport_series  String?  @unique
-  passport_number  String?  @unique
   author           String
   province         String
   destrict         String
@@ -104,4 +102,16 @@ model datas {
   comment          String
   createdAt        DateTime @default(now())
   updatedAt        DateTime @default(now())
+}
+
+
+model User {
+  id               Int      @id @default(autoincrement())
+  username         String? @unique
+  password         String?
+  companyID        Int?
+  email            String?
+  fullname         String?
+  phone            String?
+  inphone          String?
 }

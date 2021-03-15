@@ -1,12 +1,16 @@
 import { PrismaClient } from "@prisma/client";
+import {authHandler} from "../../../untils/auth-middleware"
 
 const prisma  = new PrismaClient();
-export default async (req, res) => {
+
+export default authHandler(async (req, res) => {
+
+    if(req.method === "GET"){
+        res.json({msg:"here is data"})
+    }
 
     if(req.method === "POST" ){
-        console.log(req.body);
-        // return res.json({message: "messages"})
-        await prisma.datas.createMany({
+        await prisma.next_Datas.createMany({
             data: [
                 {
                     ...req.body
@@ -24,5 +28,5 @@ export default async (req, res) => {
 
     }
     
-  }
+  })
   

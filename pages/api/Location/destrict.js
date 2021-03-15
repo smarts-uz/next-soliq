@@ -1,12 +1,13 @@
 import { PrismaClient } from "@prisma/client";
+import { authHandler } from "../../../untils/auth-middleware";
 
 const prisma = new PrismaClient();
 
-export default (req, res) => {
+export default authHandler(async(req, res) => {
 
   if(req.method === "POST" ){
 
-        prisma.destricts.findMany({
+        await prisma.next_Destricts.findMany({
             where:{
               row_obl: req.body.ray
             }
@@ -21,4 +22,4 @@ export default (req, res) => {
        
     
   }
-  
+  )

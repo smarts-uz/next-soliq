@@ -1,52 +1,58 @@
-import { PrismaClient } from ".prisma/client";
-import router from "next/router";
 import {useState} from "react"
 import Layout from "../components/Layout";
 import Table from "../components/Table"
 import Modal from "../components/Modal"
 import Forma from "../components/Forma"
+import {getRoute} from "../untils/get-router"
+import  Router  from "next/router";
 
 
-export const toJson = (data) => {
-    return JSON.parse(JSON.stringify(data));
-}
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async(ctx) => {
+   const data = await getRoute('http://localhost:3000/api/All/info', ctx)
 
-    const prisma = new PrismaClient()
-    const types = await prisma.type.findMany();
-    const categories = await prisma.category.findMany();
-    const underCategory = await prisma.underCategory.findMany();
-    const themes = await prisma.theme.findMany();
-    const datas = await prisma.datas.findMany();
+     if (!data) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    }
+  }
 
     return {
         props: {
-            categories: toJson(categories),
-            underCategories: toJson(underCategory),
-            themes: toJson(themes),
-            types: toJson(types),
-            datas: toJson(datas)
+            category: data.categories,
+            underCategories: data.underCategory,
+            themes: data.themes,
+            types: data.types,
+            datas: data.datas
         }
     }
 }
 
 
-const dataTable = (props) => {
-    
+function DataTable (props) {
+
       const [showUpdateModal, setShowUpdateModal] = useState(false);
+
     return (
         <Layout>
             <div className="rounded">
-                <div className="flex justify-between bg-white shadow items-center py-5 px-6">
-                    <h1 className="text-2xl font-bold text-black ">Manage Employers</h1>
-                    <button onClick = { () =>setShowUpdateModal(true)} className = "bg-blue-500 hover:bg-blue-400 duration-300 px-6 focus:outline-none rounded text-white text-sm font-medium uppercase font-normal py-2">
+                <div className="flex justify-between bg-blue-600 shadow items-center py-5 px-6">
+                    <h1 className="text-2xl font-bold text-white ">Manage Employers</h1>
+                    <div>
+                        <button onClick = { () =>setShowUpdateModal(true)} className = "bg-blue-400 hover:bg-blue-200 duration-300 focus:outline-none rounded text-white text-lg rounded-full font-medium uppercase font-normal w-12 h-12">
                         <i class="fas fa-user-plus"></i>
-                        <span className="pl-3">Create</span>
-                    </button>
+                        </button>
+                        <button onClick={()=>{fetch('/api/AUTH/logout').then(res=> res.status === 200 ? Router.push("/login"):'')}} className = "bg-blue-400 ml-3 hover:bg-blue-200 duration-300 focus:outline-none rounded text-white text-lg rounded-full font-medium uppercase font-normal w-12 h-12">
+                        <i className="fas fa-sign-out-alt"></i>
+                        </button>
+                    </div>
+                    
                 </div>
                     <div className="mt-5 mx-5">
-                        <Table categories = {props.categories} underCategories = {props.underCategories} themes = {props.themes} types = {props.types} users = {props.datas ? props.datas : []} />
+                        <Table categories = {props.category} underCategories = {props.underCategories} themes = {props.themes} types = {props.types} users = {props.datas ? props.datas : []} />
                     </div>
                     
                     <Modal show={showUpdateModal} onClick={() => { setShowUpdateModal(!showUpdateModal) }} >
@@ -57,4 +63,5 @@ const dataTable = (props) => {
     );
 }
 
-export default dataTable;
+
+export default DataTable;

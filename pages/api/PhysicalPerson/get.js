@@ -1,8 +1,9 @@
 import axios from "axios"
 import { PrismaClient } from "@prisma/client";
+import { authHandler } from "../../../untils/auth-middleware";
 
 const prisma = new PrismaClient();
-export default async (req, res) => {
+export default authHandler(async (req, res) => {
     let username = 'test';
     let password = '123456789';
     let headers = new Headers();
@@ -40,3 +41,4 @@ export default async (req, res) => {
             console.log(err);
         })
 }
+)

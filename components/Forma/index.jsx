@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import Select from "react-select";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { validateForm } from '../../unlits/validate-form'
+import { validateForm } from '../../untils/validate-form'
 import { data } from "autoprefixer";
 
 const BasicWithHTML = (props) => {
@@ -150,51 +150,6 @@ const BasicWithHTML = (props) => {
         }
       })
     }
-    // else if (e.key === 'Enter' && formik.values.type === types[0].value) {
-    //   e.preventDefault();
-    //   await axios.post('/api/Person/fiz', {
-    //     inn: formik.values.inn,
-    //   }).then(async (res) => {
-    //     const obl = []
-    //     const ray = []
-
-    //     console.log(ray)
-
-    //     await axios.post("/api/Location/provinces", {
-    //       obl: res.data.data.ns10_code
-    //     }).then(response => { obl.push(response.data[0]) })
-
-    //     await axios.post("/api/Location/destrict", {
-    //       ray: res.data.data.ns10_code
-    //     }).then(response => { ray.push(response.data[0]) })
-
-
-    //     if (res.data.success === false) {
-    //       alert("Ushbu INN Buyicha Malumot Topilmadi")
-    //     } else {
-    //       const NewData = {
-    //         operator: formik.values.operator,
-    //         fio: formik.values.fio,
-    //         referenceContent: formik.values.referenceContent,
-    //         inn: formik.values.inn,
-    //         type: formik.values.type,
-    //         author: res.data.data.company_name,
-    //         province: obl[0].name_uz,
-    //         destrict: ray[0].name_uz,
-    //         address: res.data.data.adress,
-    //         phone: formik.values.phone,
-    //         email: formik.values.email,
-    //         category: formik.values.category,
-    //         underCategory: formik.values.underCategory,
-    //         theme: formik.values.theme,
-    //         reviewResult: formik.values.reviewResult,
-    //         comment: formik.values.comment,
-    //       }
-    //       formik.setValues(NewData)
-    //     }
-    //   })
-    // }
-
 
   }
 
