@@ -5,20 +5,13 @@ import Modal from "../components/Modal"
 import Forma from "../components/Forma"
 import {getRoute} from "../untils/get-router"
 import  Router  from "next/router";
+import jwt from "jsonwebtoken";
 
 
 
 export const getServerSideProps = async(ctx) => {
    const data = await getRoute('http://localhost:3000/api/All/info', ctx)
-
-     if (!data) {
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false,
-      },
-    }
-  }
+   console.log(data)
 
     return {
         props: {
@@ -26,7 +19,8 @@ export const getServerSideProps = async(ctx) => {
             underCategories: data.underCategory,
             themes: data.themes,
             types: data.types,
-            datas: data.datas
+            datas: data.datas,
+            user: jwt.decode(data.token)
         }
     }
 }
@@ -45,7 +39,7 @@ function DataTable (props) {
                         <button onClick = { () =>setShowUpdateModal(true)} className = "bg-blue-400 hover:bg-blue-200 duration-300 focus:outline-none rounded text-white text-lg rounded-full font-medium uppercase font-normal w-12 h-12">
                         <i class="fas fa-user-plus"></i>
                         </button>
-                        <button onClick={()=>{fetch('/api/AUTH/logout').then(res=> res.status === 200 ? Router.push("/login"):'')}} className = "bg-blue-400 ml-3 hover:bg-blue-200 duration-300 focus:outline-none rounded text-white text-lg rounded-full font-medium uppercase font-normal w-12 h-12">
+                        <button onClick={()=>{fetch('/api/Auth/logout').then(res=> res.status === 200 ? Router.push("/login"):'')}} className = "bg-blue-400 ml-3 hover:bg-blue-200 duration-300 focus:outline-none rounded text-white text-lg rounded-full font-medium uppercase font-normal w-12 h-12">
                         <i className="fas fa-sign-out-alt"></i>
                         </button>
                     </div>

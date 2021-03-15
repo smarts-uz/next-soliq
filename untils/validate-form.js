@@ -5,7 +5,7 @@ import * as Yup from "yup";
 export const validateForm = () => {
   return Yup.object({
     operator: Yup.string()
-      .min(6, "Оператор должен состоять не менее чем из 6 символов")
+      .min(5, "Оператор должен состоять не менее чем из 6 символов")
       .max(50, "Оператор должен состоять не более чем из 50 символов")
       .required("Оператор является обязательным полем"),
     fio: Yup.string()

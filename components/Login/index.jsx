@@ -24,7 +24,7 @@ export default function Login() {
 
       setLoading(true)
 
-      await axios.post('/api/AUTH/login', {
+      await axios.post('/api/Auth/login', {
         username: values.username,
         password: values.password
       }).then(response => {

@@ -17,7 +17,8 @@ export default authHandler(async(req, res) => {
             categories,
             underCategory,
             themes,
-            datas
+            datas,
+            token: req.cookies.auth
         });
     }
   })
