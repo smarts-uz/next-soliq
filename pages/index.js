@@ -11,7 +11,6 @@ import jwt from "jsonwebtoken";
 
 export const getServerSideProps = async(ctx) => {
    const data = await getRoute('http://localhost:3000/api/All/info', ctx)
-   console.log(data)
 
     return {
         props: {
