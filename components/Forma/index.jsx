@@ -84,8 +84,8 @@ const BasicWithHTML = (props) => {
   });
   useEffect(() => {
     const data = {
-      operator: props.user ? props.user.username : "",
-      fio: props.user ? props.user.fullname : "",
+      operator: props.data ? props.data.operator : props.user ? props.user.username : '',
+      fio: props.data ? props.data.fio : props.user ? props.user.fullname : '',
       referenceContent: props.data ? props.data.referenceContent : "",
       inn: props.data ? props.data.inn : "",
       type: props.data ? props.data.type : "",

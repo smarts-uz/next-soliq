@@ -14,7 +14,7 @@ export const getServerSideProps = async(ctx) => {
 
     return {
         props: {
-            category: data.categories,
+            categories: data.categories,
             underCategories: data.underCategory,
             themes: data.themes,
             types: data.types,
