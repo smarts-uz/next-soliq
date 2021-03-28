@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" co   ntent="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="px-6 md:col-span-6 lg:col-span-4 sm:col-span-12">
+        <label for="inn">STIR:<span class="text-red-600 font-extrabold">*</span> 
+        </label>
+        <input id="innInput" type="number"  min="0" class=" inputNeed w-full h-9 rounded border-2 focus:border-blue-500 border-gray-300 px-4 focus:outline-none" name="inn" value="614985546">
+        <button class="btn-dd">none</button>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous"></script>
+    
+    <script type="text/javascript">
+    var dataTypePost = {
+        tin: 5677545,
+    }
+
+$('.btn-dd').on('click', function(){
+    axios({
+        method: "post",
+        url: "https://ws.soliqservis.uz/gnk/data/fiznp1",
+        data: dataTypePost,
+        dataType: 'json',
+        success: function(res) {
+            console.log(res);
+            alert(res);
+        },
+        headers: {
+            'Authorization':'Basic dGVzdDoxMjM0NTY3ODk='
+        },
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+        body: JSON.stringify({"tin":"621434190","lang":"uz","pinfl":"","series_passport":"","number_passport":""}),
+    })
+    .then(function (response) {
+        //handle success
+        console.log(response);
+    })
+    .catch(function (response) {
+        //handle error
+        console.log(response);
+    });
+    
+})
+        
+        
+    </script>
+</body>
+</html>
